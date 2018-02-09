@@ -1,0 +1,142 @@
+apiVersion: v1
+entries:
+  django-nginx-uwsgi:
+  - apiVersion: v1
+    created: 2017-10-13T12:15:22.459929865+02:00
+    description: A Helm chart for a simple architecture of an app deploying over Kubernetes
+      using nginx and uwsgi in the same pod
+    digest: 793d54a1c5f66efbadf07e1cc2b6a34ea8387610a02bf953c356f5655f46bb54
+    keywords:
+    - django
+    - nginx
+    - uwsgi
+    - crons
+    - rq
+    - celery
+    name: django-nginx-uwsgi
+    urls:
+    - django-nginx-uwsgi-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v1
+    created: 2017-10-13T12:15:22.458681976+02:00
+    description: A Helm chart for a simple architecture of an app deploying over Kubernetes
+      using nginx and uwsgi in the same pod
+    digest: 36fbdf0b459024092cabbcb3c600e7273a2e1284c96235d3efa5c32f6c932e3c
+    keywords:
+    - django
+    - nginx
+    - uwsgi
+    name: django-nginx-uwsgi
+    urls:
+    - django-nginx-uwsgi-0.1.0.tgz
+    version: 0.1.0
+  django-uwsgi:
+  - apiVersion: v1
+    created: 2017-10-13T12:15:22.461805132+02:00
+    description: A Helm chart for a simple architecture of an app deploying over Kubernetes
+      using uwsgi
+    digest: 89f5bb614356311059c249d90bfceba3a430bcc89408edba7276c33e1b30dd1d
+    keywords:
+    - django
+    - uwsgi
+    - crons
+    - rq
+    - celery
+    name: django-uwsgi
+    urls:
+    - django-uwsgi-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v1
+    created: 2017-10-13T12:15:22.46089881+02:00
+    description: A Helm chart for a simple architecture of an app deploying over Kubernetes
+      using uwsgi
+    digest: d0dd7be8e9ff1f0558c84ac31e0402313d5b6507cd6c5ebb7540c6425547b3d3
+    keywords:
+    - django
+    - uwsgi
+    - crons
+    name: django-uwsgi
+    urls:
+    - django-uwsgi-0.1.0.tgz
+    version: 0.1.0
+  nginx:
+  - apiVersion: v1
+    created: 2017-10-13T12:15:22.462059883+02:00
+    description: A Helm chart for a simple deployment of nginx server over Kubernetes.
+    digest: 41da344580ed3d6f8cafff59f79e3054cb953676dc205b705056a9301b2856b3
+    keywords:
+    - template
+    - nginx
+    name: nginx
+    urls:
+    - nginx-0.1.0.tgz
+    version: 0.1.0
+  nginx-uwsgi:
+  - apiVersion: v1
+    created: 2017-10-13T12:15:22.462696124+02:00
+    description: A Helm chart for a simple architecture of an app deploying over Kubernetes
+      using nginx and uwsgi in the same pod.
+    digest: 24d5dbc89e1d35078d2f6bf042701e485346f36bcb2fafdca59019e2080bb56a
+    keywords:
+    - template
+    - nginx
+    - uwsgi
+    - proxysql
+    name: nginx-uwsgi
+    urls:
+    - nginx-uwsgi-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v1
+    created: 2017-10-13T12:15:22.462387738+02:00
+    description: A Helm chart for a simple architecture of an app deploying over Kubernetes
+      using nginx and uwsgi in the same pod.
+    digest: 308a405e5d6c25c45cadeec0d2c6cf0b0e9b3a4a502e48299dd41daf257a997b
+    keywords:
+    - template
+    - nginx
+    - uwsgi
+    - proxysql
+    name: nginx-uwsgi
+    urls:
+    - nginx-uwsgi-0.1.0.tgz
+    version: 0.1.0
+  uwsgi:
+  - apiVersion: v1
+    created: 2017-10-13T12:15:22.463284694+02:00
+    description: A Helm chart for a simple architecture of an app deploying over Kubernetes
+      using uwsgi
+    digest: 0045d168be9ce15a883f10080949bfddebc3debf98a60e25dcf331dd16660bb4
+    keywords:
+    - template
+    - uwsgi
+    - proxysql
+    name: uwsgi
+    urls:
+    - uwsgi-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v1
+    created: 2017-10-13T12:15:22.463000273+02:00
+    description: A Helm chart for a simple architecture of an app deploying over Kubernetes
+      using uwsgi
+    digest: 984dc74a731883d2147361df48c059e5cfc47e168c4d94b42309946c45c3b6e7
+    keywords:
+    - template
+    - uwsgi
+    - proxysql
+    name: uwsgi
+    urls:
+    - uwsgi-0.1.0.tgz
+    version: 0.1.0
+  varnish:
+  - apiVersion: v1
+    created: 2017-10-13T12:15:22.463479943+02:00
+    description: A Helm chart for a varnish deployment
+    digest: 61692cb989fea243a0698ab612d90adc01905ddefaf41111259788270eb9e3c5
+    keywords:
+    - template
+    - varnish
+    name: varnish
+    urls:
+    - varnish-0.1.0.tgz
+    version: 0.1.0
+generated: 2017-10-13T12:15:22.457244236+02:00

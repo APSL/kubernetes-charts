@@ -1,0 +1,115 @@
+# Default values for uwsgi.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Extract to global variables those variables most
+# susceptible to be overridden.
+global:
+  image:
+    uwsgi: ""
+    cloudsqlProxy:
+      project: apsl-hosting
+      name: apsl-hosting
+      zone: europe-west1
+      port: "5432"
+      filename: cloudsql-authorization.json
+  cloudsqlProxy:
+    tag: "1.11"
+    ports:
+     - name: postgres
+       containerPort: 5432
+  dataSecrets:
+  dataConfigMap:
+
+
+replicaCount: 1
+strategy:
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
+
+
+deployment:
+  labels:
+    tier: web
+  image:
+    tag: latest
+    pullPolicy: Always
+  probes:
+    liveness:
+      enabled: true
+      command: /entrypoint.sh
+      args: launch-probe
+      delay: 30
+      timeout: 5
+    readiness:
+      enabled: false
+      command: /entrypoint.sh
+      args: launch-probe
+      delay: 5
+      timeout: 5
+  resources:
+    limits:
+      memory: 500Mi
+    requests:
+      memory: 50Mi
+  sentry:
+    enabled: true
+  redisPort: "6379"
+  cloudsqlProxy:
+    enabled: true
+    name: cloudsql-proxy
+    pullPolicy: IfNotPresent
+
+
+service:
+    enabled: true
+    type: NodePort
+    externalPort: 80
+    internalPort: 8080
+
+
+configMap:
+    enabled: true
+    uwsgiAddr: ""
+    enableBasicAuth: "True"
+    enable3wRedirect: "True"
+    enableHttpsRedirect: "True"
+    databaseHost: "127.0.0.1"
+    databasePort: "5432"
+    databaseName: ""
+    databaseUser: apsl
+    enableSentry: "True"
+
+
+secrets:
+  enabled: true
+  type: Opaque
+  cloudsql:
+    name: cloudsql-oauth-credentials
+  secretKey: ""
+  passwordDB: ""
+  sentryDSN: ""
+
+
+crons:
+  enabled: false
+  args:
+    - run-crons
+
+
+celery:
+  enabled: false
+  args:
+    - run-celery
+  flowerAuth: "demo:demo"
+  backend: redis
+  host: redis
+  port: "6379"
+  db: 1
+
+
+djangoRQ:
+  enabled: false
+  args:
+    - run-rq

@@ -1,0 +1,69 @@
+# Customizable nginx deployment
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ template "fullname" . }}
+  labels:
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+
+spec:
+  replicas: {{ .Values.replicaCount }}
+{{- if .Values.strategy }}
+  strategy:
+{{ toYaml .Values.strategy | indent 4 }}
+{{- end }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+        tier: {{ .Values.deployment.labels.tier }}
+# Almost every variable has a default value, but take care of with some others like <global.image.nginx>,
+# which are mandatory but depends of each app.
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-nginx
+          image: {{ .Values.global.image.nginx }}:{{ .Values.deployment.image.tag }}
+          imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.internalPort }}
+          {{- if .Values.deployment.probes.livenessEnabled }}
+          livenessProbe:
+            httpGet:
+              path: /nginx/healthz
+              port: 8888
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+          {{- end }}
+          {{- if .Values.deployment.probes.readinessEnabled }}
+          readinessProbe:
+            httpGet:
+              path: /nginx/healthz
+              port: 8888
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+          {{- end }}
+          env:
+            - name: ENABLE_BASIC_AUTH
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}
+                  key: app.enableBasicAuth
+            - name: ENABLE_HTTPS_FORCE
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}
+                  key: app.enableHttpsForce
+            - name: FORCE_WWW_REDIRECT
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}
+                  key: app.force3WRedirect
+          resources:
+{{ toYaml .Values.deployment.resources | indent 12 }}
+      {{- if .Values.deployment.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.deployment.nodeSelector | indent 8 }}
+      {{- end }}

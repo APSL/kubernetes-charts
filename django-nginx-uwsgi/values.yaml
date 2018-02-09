@@ -1,0 +1,90 @@
+# Default values for django app
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  dataSecrets:
+  dataConfigMap:
+  image:
+    uwsgi: ""
+    nginx: ""
+
+
+nginx-uwsgi:
+  secrets:
+    secretKey: ""
+    passwordDB: ""
+    sentryDSN: ""
+
+
+crons:
+  enabled: true
+  secrets:
+    enabled: false
+  service:
+    enabled: false
+  configMap:
+    enabled: false
+  crons:
+    enabled: true
+  deployment:
+    probes:
+      liveness:
+        enabled: false
+
+
+celery:
+  enabled: false
+  secrets:
+    enabled: false
+  service:
+    enabled: false
+  configMap:
+    enabled: false
+  celery:
+    enabled: true
+  deployment:
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
+
+
+rq:
+  enabled: false
+  secrets:
+    enabled: false
+  service:
+    enabled: false
+  configMap:
+    enabled: false
+  djangoRQ:
+    enabled: true
+  deployment:
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
+
+
+redis:
+  enabled: true
+  image: redis:3.0.7
+  usePassword: false
+  persistence:
+    enabled: false
+  resources:
+    limits:
+      cpu: 50m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 128Mi
+
+
+# BackendHost takes release name as a prefix: {{ RELEASE_NAME-backendHost }}
+varnish:
+  enabled: true
+  backendHost: ""

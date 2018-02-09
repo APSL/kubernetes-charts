@@ -1,0 +1,33 @@
+dependencies:
+  - name: nginx-uwsgi
+    version: 0.1.1
+    repository: http://127.0.0.1:8879/charts
+    alias: app
+
+  - name: uwsgi
+    version: 0.1.1
+    repository: http://127.0.0.1:8879/charts
+    alias: crons
+    condition: crons.enabled
+
+  - name: uwsgi
+    version: 0.1.1
+    repository: http://127.0.0.1:8879/charts
+    alias: rq
+    condition: rq.enabled
+
+  - name: uwsgi
+    version: 0.1.1
+    repository: http://127.0.0.1:8879/charts
+    alias: celery
+    condition: celery.enabled
+
+  - name: varnish
+    version: 0.1.0
+    repository: http://127.0.0.1:8879/charts
+    condition: varnish.enabled
+
+  - name: redis
+    version: 0.8.0
+    repository: https://kubernetes-charts.storage.googleapis.com
+    condition: redis.enabled

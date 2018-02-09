@@ -1,0 +1,15 @@
+apiVersion: v1
+name: uwsgi
+version: 0.1.1
+keywords:
+  - template
+  - uwsgi
+  - proxysql
+description: A Helm chart for a simple architecture of an app deploying over Kubernetes using uwsgi
+mantainers:
+  - name: Tomeu Canyelles
+    email: bcanyelles@apsl.net
+  - name: Pau Rul.lan
+    email: prullan@apsl.net
+  - name: Edu Herraiz
+    email: eherraiz@apsl.net

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  app.enableBasicAuth: "{{ .Values.configMap.enableBasicAuth }}"
+  app.enableHttpsForce: "{{ .Values.configMap.enableHttpsForce }}"
+  app.force3WRedirect: "{{ .Values.configMap.force3WRedirect }}"
+{{- if .Values.global.dataConfigMap }}
+{{- range $configmap := .Values.global.dataConfigMap }}
+  {{ $configmap.key }}: "{{ $configmap.value }}"
+{{- end }}
+{{- end }}

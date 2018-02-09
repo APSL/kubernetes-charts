@@ -1,0 +1,11 @@
+#!/bin/bash
+
+helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com/
+
+for i in $( ls -d */ | cut -f1 -d'/' ); do
+    if [[ $i!="apps" || $i!="images" || $i!="images" ]]; then
+        helm package -u -d packages $i
+    fi
+done
+
+# helm repo index
