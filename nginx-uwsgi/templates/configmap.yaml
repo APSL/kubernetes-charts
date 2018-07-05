@@ -13,19 +13,28 @@ data:
   ENABLE_BASIC_AUTH: "{{ .Values.configMap.enableBasicAuth }}"
   ENABLE_3W_REDIRECT: "{{ .Values.configMap.enable3wRedirect }}"
   ENABLE_HTTPS_REDIRECT: "{{ .Values.configMap.enableHttpsRedirect }}"
-  UWSGI_ADDR: "{{ .Values.configMap.uwsgiAddr }}"
+  ALLOWED_HOSTS: "{{ .Values.configMap.allowedHosts }}"
 
   DATABASE_HOST: "{{ .Values.configMap.databaseHost }}"
+  {{- if .Values.deployment.pgBouncer.enabled }}
+  DATABASE_PORT: "{{ .Values.deployment.pgBouncer.port }}"
+  {{- else -}}
   DATABASE_PORT: "{{ .Values.configMap.databasePort }}"
+  {{- end }}
+  {{- if not .Values.databaseController.enabled }}
   DATABASE_NAME: "{{ .Values.configMap.databaseName }}"
   DATABASE_USER: "{{ .Values.configMap.databaseUser }}"
+  {{- end }}
+
+  COMPRESS_ENABLED: "{{ .Values.configMap.compressEnabled }}"
+  COMPRESS_OFFLINE: "{{ .Values.configMap.compressOffline }}"
 
   SENTRY_ENABLED: "{{ .Values.configMap.enableSentry }}"
 
   REDIS_HOST: "{{ .Release.Name }}-redis"
   REDIS_PORT: "{{ .Values.deployment.redisPort }}"
 
-# Configure other environment variables
+  # Configure other environment variables
   {{- if .Values.global.dataConfigMap }}
   {{- range $configmap := .Values.global.dataConfigMap }}
   {{ $configmap.key }}: "{{ $configmap.value }}"

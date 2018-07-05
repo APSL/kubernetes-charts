@@ -27,19 +27,32 @@ deployment:
     - name: http
       containerPort: 80
   probes:
-    livenessEnabled: true
-    readinessEnabled: true
+    liveness:
+      enabled: true
+      httpPath: /nginx/healthz
+      initialDelay: 30
+      timeout: 5
+    readiness:
+      enabled: true
+      httpPath: /nginx/healthz
+      initialDelay: 5
+      timeout: 5
   resources:
     requests:
       cpu: 10m
-
-
+      memory: 10Mi
+    limits:
+      cpu: 50m
+      memory: 50Mi
+  metrics:
+    enabled: true
+    prometheus: false
 
 service:
     enabled: true
     type: NodePort
     externalPort: 80
-    internalPort: 8080
+    internalPort: 8000
 
 
 configMap:
