@@ -21,6 +21,10 @@ spec:
 {{- end }}
   template:
     metadata:
+      {{- if and .Values.deployment.metrics.enabled .Values.deployment.metrics.prometheus  }}
+      annotations:
+        prometheus.io/scrape: "true"
+      {{- end }}
       labels:
         app: {{ template "fullname" . }}
         tier: {{ .Values.deployment.labels.tier }}
@@ -69,6 +73,24 @@ spec:
                 name: {{ .Release.Name }}
             - secretRef:
                 name: {{ .Release.Name }}
+          {{- if .Values.databaseController.enabled }}
+          env:
+            - name: DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: database-name
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: database-user
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: database-password
+          {{- end }}
           resources:
 {{ toYaml .Values.deployment.resources | indent 12 }}
 # This configuration could be used as a uwsgi app, cron, celery or django-rq deployment, so you
@@ -103,7 +125,7 @@ spec:
 # with the `json` resultant file account.
         {{- if .Values.deployment.cloudsqlProxy.enabled }}
         - name: {{ .Values.deployment.cloudsqlProxy.name }}
-          image: "gcr.io/cloudsql-docker/gce-proxy:{{ .Values.global.cloudsqlProxy.tag }}"
+          image: "{{ .Values.global.cloudsqlProxy.image }}:{{ .Values.global.cloudsqlProxy.tag }}"
           imagePullPolicy: {{ .Values.deployment.cloudsqlProxy.pullPolicy }}
           {{- if .Values.global.cloudsqlProxy.ports }}
           ports:
@@ -122,11 +144,168 @@ spec:
               mountPath: /etc/ssl/certs
         {{- end }}
 
+# PgBouncer container
+        {{- if .Values.deployment.pgBouncer.enabled }}
+        - name: {{ .Release.Name }}-pgbouncer
+          image: brainsam/pgbouncer:1.8.1
+          env:
+          - name: DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}
+                key: DATABASE_HOST
+          - name: DB_PORT
+            value: "{{ .Values.configMap.databasePort }}"
+          {{- if .Values.databaseController.enabled }}
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: db-secret
+                key: database-user
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-secret
+                key: database-password
+          {{- else }}
+          - name: DB_USER
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}
+                key: DATABASE_USER
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Release.Name }}
+                key: DATABASE_PASSWORD
+          {{- end }}
+          - name: LISTEN_PORT
+            value: "{{ .Values.deployment.pgBouncer.port }}"
+          - name: LOGFILE
+            value: /tmp/pgbouncer.log
+          - name: POOL_MODE
+            value: {{ .Values.deployment.pgBouncer.poolMode }}
+          - name: MAX_CLIENT_CONN
+            value: "{{ .Values.deployment.pgBouncer.maxClientConn }}"
+          - name: MAX_DB_CONNECTIONS
+            value: "{{ .Values.deployment.pgBouncer.maxDBConnections }}"
+          - name: LISTEN_BACKLOG
+            value: "{{ .Values.deployment.pgBouncer.listenBacklog }}"
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: {{ .Values.deployment.pgBouncer.port }}
+            name: postgres
+            protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.deployment.pgBouncer.port }}
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.deployment.pgBouncer.port }}
+        {{- end }}
       {{- if .Values.deployment.nodeSelector }}
       nodeSelector:
 {{ toYaml .Values.deployment.nodeSelector | indent 8 }}
       {{- end }}
-
+# Metrics containers
+      {{- if .Values.deployment.metrics.enabled }}
+      - name: {{ .Release.Name }}-uwsgi-exporter
+        image: timonwong/uwsgi-exporter
+        args:
+        - --stats.uri=http://localhost:1717
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 10m
+            memory: 10Mi
+          limits:
+            cpu: 100m
+            memory: 25Mi
+        ports:
+        - name: metrics
+          containerPort: 9117
+        livenessProbe:
+          httpGet:
+            path: /-/healthy
+            port: 9117
+      {{- if .Values.deployment.pgBouncer.enabled }}
+      - name: {{ .Release.Name }}-pgbouncer-exporter
+        image: apsl/prometheus-pgbouncer-exporter
+        args:
+        - --config=/etc/pgbouncer-exporter/config.yml
+        env:
+        - name: PGBOUNCER_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Release.Name }}
+              key: DATABASE_HOST
+        - name: PGBOUNCER_PORT
+          value: "{{ .Values.deployment.pgBouncer.port }}"
+        {{- if .Values.databaseController.enabled }}
+        - name: PGBOUNCER_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: database-user
+        - name: PGBOUNCER_PASS
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: database-password
+        {{- else }}
+        - name: PGBOUNCER_USER
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Release.Name }}
+              key: DATABASE_USER
+        - name: PGBOUNCER_PASS
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}
+              key: DATABASE_PASSWORD
+        {{- end }}
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 10m
+            memory: 20Mi
+          limits:
+            cpu: 100m
+            memory: 50Mi
+        ports:
+        - name: metrics
+          containerPort: 9127
+      {{- end }}
+      - name: prometheus-to-sd
+        image: gcr.io/google-containers/prometheus-to-sd:v0.3.1
+        command:
+        - /monitor
+        - --source=:http://localhost:9117/metrics # uwsgi
+        - --source=:http://localhost:8080/metrics # django
+        {{- if .Values.deployment.pgBouncer.enabled }}
+        - --source=:http://localhost:9127/metrics # pgbouncer
+        {{- end }}
+        - --stackdriver-prefix=custom.googleapis.com
+        - --pod-id=$(POD_ID)
+        - --namespace-id=$(POD_NAMESPACE)
+        env:
+        - name: POD_ID
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        resources:
+          requests:
+            cpu: 10m
+            memory: 20Mi
+          limits:
+            cpu: 100m
+            memory: 50Mi
+      {{- end }}
       volumes:
 # Only should mount the secrets if Cloud SQL proxy is enabled
         {{- if .Values.deployment.cloudsqlProxy.enabled }}
