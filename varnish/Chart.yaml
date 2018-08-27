@@ -4,7 +4,7 @@ version: 0.1.0
 keywords:
   - template
   - varnish
-description: A Helm chart for a varnish deployment
+description: A Chart for a varnish deployment.
 mantainers:
   - name: Tomeu Canyelles
     email: bcanyelles@apsl.net
@@ -12,3 +12,5 @@ mantainers:
     email: prullan@apsl.net
   - name: Edu Herraiz
     email: eherraiz@apsl.net
+  - name: Marc Tudurí
+    email: mtuduri@apsl.net

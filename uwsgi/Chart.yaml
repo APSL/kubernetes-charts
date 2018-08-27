@@ -5,7 +5,8 @@ keywords:
   - template
   - uwsgi
   - proxysql
-description: A Helm chart for a simple architecture of an app deploying over Kubernetes using uwsgi
+description: >
+    A Chart to deploy a single uwsgi container in the pod that serve the application.
 mantainers:
   - name: Tomeu Canyelles
     email: bcanyelles@apsl.net
@@ -13,3 +14,5 @@ mantainers:
     email: prullan@apsl.net
   - name: Edu Herraiz
     email: eherraiz@apsl.net
+  - name: Marc Tudurí
+    email: mtuduri@apsl.net

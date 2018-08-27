@@ -6,7 +6,9 @@ keywords:
   - nginx
   - uwsgi
   - proxysql
-description: A Helm chart for a simple architecture of an app deploying over Kubernetes using nginx and uwsgi in the same pod.
+description: >
+    This Chart is for applications served using uwsgi and nginx server. So, it will deploy over K8s a pod with a uwsgi
+    and a nginx container.
 mantainers:
   - name: Tomeu Canyelles
     email: bcanyelles@apsl.net
@@ -14,3 +16,5 @@ mantainers:
     email: prullan@apsl.net
   - name: Edu Herraiz
     email: eherraiz@apsl.net
+  - name: Marc Tudurí
+    email: mtuduri@apsl.net

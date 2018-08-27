@@ -2,10 +2,10 @@ apiVersion: v1
 entries:
   django-nginx-uwsgi:
   - apiVersion: v1
-    created: 2017-10-13T12:15:22.459929865+02:00
+    created: 2018-08-27T10:43:39.232014764+02:00
     description: A Helm chart for a simple architecture of an app deploying over Kubernetes
       using nginx and uwsgi in the same pod
-    digest: 793d54a1c5f66efbadf07e1cc2b6a34ea8387610a02bf953c356f5655f46bb54
+    digest: ce13663a1d7a366ec7beb351ee960b3254ef181d9b5e2a316b58841b19026b81
     keywords:
     - django
     - nginx
@@ -18,7 +18,7 @@ entries:
     - django-nginx-uwsgi-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
-    created: 2017-10-13T12:15:22.458681976+02:00
+    created: 2018-08-27T10:43:39.230267421+02:00
     description: A Helm chart for a simple architecture of an app deploying over Kubernetes
       using nginx and uwsgi in the same pod
     digest: 36fbdf0b459024092cabbcb3c600e7273a2e1284c96235d3efa5c32f6c932e3c
@@ -32,10 +32,10 @@ entries:
     version: 0.1.0
   django-uwsgi:
   - apiVersion: v1
-    created: 2017-10-13T12:15:22.461805132+02:00
+    created: 2018-08-27T10:43:39.236299488+02:00
     description: A Helm chart for a simple architecture of an app deploying over Kubernetes
       using uwsgi
-    digest: 89f5bb614356311059c249d90bfceba3a430bcc89408edba7276c33e1b30dd1d
+    digest: ef778a36eef4dddf92c3574be1110253739e521b5d310ad837ae3bf89f6d7b7b
     keywords:
     - django
     - uwsgi
@@ -47,7 +47,7 @@ entries:
     - django-uwsgi-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
-    created: 2017-10-13T12:15:22.46089881+02:00
+    created: 2018-08-27T10:43:39.234058704+02:00
     description: A Helm chart for a simple architecture of an app deploying over Kubernetes
       using uwsgi
     digest: d0dd7be8e9ff1f0558c84ac31e0402313d5b6507cd6c5ebb7540c6425547b3d3
@@ -61,9 +61,9 @@ entries:
     version: 0.1.0
   nginx:
   - apiVersion: v1
-    created: 2017-10-13T12:15:22.462059883+02:00
+    created: 2018-08-27T10:43:39.236799642+02:00
     description: A Helm chart for a simple deployment of nginx server over Kubernetes.
-    digest: 41da344580ed3d6f8cafff59f79e3054cb953676dc205b705056a9301b2856b3
+    digest: ddabf6860c5cba24f5e79195205829aee0d1fd018e7bf065714c6a239990ac34
     keywords:
     - template
     - nginx
@@ -73,10 +73,10 @@ entries:
     version: 0.1.0
   nginx-uwsgi:
   - apiVersion: v1
-    created: 2017-10-13T12:15:22.462696124+02:00
+    created: 2018-08-27T10:43:39.238335833+02:00
     description: A Helm chart for a simple architecture of an app deploying over Kubernetes
       using nginx and uwsgi in the same pod.
-    digest: 24d5dbc89e1d35078d2f6bf042701e485346f36bcb2fafdca59019e2080bb56a
+    digest: 97292eac09ae3eb21a53e283c0c714ce1face4c946084bc9813d07f64b3b229a
     keywords:
     - template
     - nginx
@@ -87,7 +87,7 @@ entries:
     - nginx-uwsgi-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
-    created: 2017-10-13T12:15:22.462387738+02:00
+    created: 2018-08-27T10:43:39.237578227+02:00
     description: A Helm chart for a simple architecture of an app deploying over Kubernetes
       using nginx and uwsgi in the same pod.
     digest: 308a405e5d6c25c45cadeec0d2c6cf0b0e9b3a4a502e48299dd41daf257a997b
@@ -102,10 +102,10 @@ entries:
     version: 0.1.0
   uwsgi:
   - apiVersion: v1
-    created: 2017-10-13T12:15:22.463284694+02:00
+    created: 2018-08-27T10:43:39.23962833+02:00
     description: A Helm chart for a simple architecture of an app deploying over Kubernetes
       using uwsgi
-    digest: 0045d168be9ce15a883f10080949bfddebc3debf98a60e25dcf331dd16660bb4
+    digest: d90e5f7889d51986a8cca7d197891cbbd19978aabe645bb8f6dbd56b37d3d2fa
     keywords:
     - template
     - uwsgi
@@ -115,7 +115,7 @@ entries:
     - uwsgi-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
-    created: 2017-10-13T12:15:22.463000273+02:00
+    created: 2018-08-27T10:43:39.239180987+02:00
     description: A Helm chart for a simple architecture of an app deploying over Kubernetes
       using uwsgi
     digest: 984dc74a731883d2147361df48c059e5cfc47e168c4d94b42309946c45c3b6e7
@@ -129,9 +129,9 @@ entries:
     version: 0.1.0
   varnish:
   - apiVersion: v1
-    created: 2017-10-13T12:15:22.463479943+02:00
+    created: 2018-08-27T10:43:39.239864116+02:00
     description: A Helm chart for a varnish deployment
-    digest: 61692cb989fea243a0698ab612d90adc01905ddefaf41111259788270eb9e3c5
+    digest: bcb3f3a0c34a3a54c528b6b6c2375001b02e22bde57400700396c4a0c032caa8
     keywords:
     - template
     - varnish
@@ -139,4 +139,4 @@ entries:
     urls:
     - varnish-0.1.0.tgz
     version: 0.1.0
-generated: 2017-10-13T12:15:22.457244236+02:00
+generated: 2018-08-27T10:43:39.227621439+02:00
