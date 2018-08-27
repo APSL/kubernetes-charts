@@ -8,7 +8,9 @@ keywords:
   - crons
   - rq
   - celery
-description: A Helm chart for a simple architecture of an app deploying over Kubernetes using nginx and uwsgi in the same pod
+description: >
+    A Chart for a simple architecture of an app deploying over K8s using nginx and uwsgi in the same pod.
+    So, it depends of 'nginx-uwsgi' packages for the app, 'uwsgi' for crons, rq or cellery and 'redis' package.
 mantainers:
   - name: Tomeu Canyelles
     email: bcanyelles@apsl.net
@@ -16,4 +18,5 @@ mantainers:
     email: prullan@apsl.net
   - name: Edu Herraiz
     email: eherraiz@apsl.net
-
+  - name: Marc Tudurí
+    email: mtuduri@apsl.net

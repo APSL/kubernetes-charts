@@ -7,7 +7,9 @@ keywords:
   - crons
   - rq
   - celery
-description: A Helm chart for a simple architecture of an app deploying over Kubernetes using uwsgi
+description: >
+    This Chart is to deploy a simple architecture of a Django application over K8s using only uwsgi container.
+    This means that it will use a 'uwsgi' package for the app and other 'uwsgi' for crons, rq or cellery.
 mantainers:
   - name: Tomeu Canyelles
     email: bcanyelles@apsl.net
@@ -15,4 +17,5 @@ mantainers:
     email: prullan@apsl.net
   - name: Edu Herraiz
     email: eherraiz@apsl.net
-
+  - name: Marc Tudurí
+    email: mtuduri@apsl.net
