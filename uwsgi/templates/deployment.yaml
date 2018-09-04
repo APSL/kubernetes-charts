@@ -1,5 +1,5 @@
 # Customizable uwsgi deployment
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: {{ .Release.Namespace }}
@@ -11,6 +11,10 @@ metadata:
 
 spec:
   replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "fullname" . }}
+      tier: {{ .Values.deployment.labels.tier }}
 {{- if .Values.strategy }}
   strategy:
 {{ toYaml .Values.strategy | indent 4 }}
@@ -60,105 +64,11 @@ spec:
 # The structure of Values are built so that you can define a set of secret keys and/or a set
 # of config map to complete the most important environment variables.
 # Take a look apps/template.yaml to know how specify it.
-          env:
-            - name: ENABLE_BASIC_AUTH
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Release.Name }}
-                  key: django.enableBasicAuth
-            - name: ENABLE_3W_REDIRECT
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Release.Name }}
-                  key: django.enable3wRedirect
-            - name: ENABLE_HTTPS_REDIRECT
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Release.Name }}
-                  key: django.enableHttpsRedirect
-            - name: SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Release.Name }}
-                  key: django.secretKey
-            - name: DATABASE_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Release.Name }}
-                  key: django.databaseHost
-            - name: DATABASE_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Release.Name }}
-                  key: django.databasePort
-            - name: DATABASE_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Release.Name }}
-                  key: django.databaseName
-            - name: DATABASE_USER
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Release.Name }}
-                  key: django.databaseUser
-            - name: DATABASE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: django.passwordDB
-                  name: {{ .Release.Name }}
-            - name: SENTRY_ENABLED
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Release.Name }}
-                  key: django.enableSentry
-            {{- if eq .Values.configMap.enableSentry "True"}}
-            - name: SENTRY_DSN
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Release.Name }}
-                  key: django.sentryDSN
-            {{- end }}
-            - name: REDIS_HOST
-              value: {{ .Release.Name }}-redis
-            - name: REDIS_PORT
-              value: "{{ .Values.deployment.redisPort }}"
-# Environment variables to configure celery
-            {{- if .Values.celery.enabled }}
-            - name: CELERY_BACKEND_TYPE
-              value: {{ .Values.celery.backend }}
-            - name: CELERY_BACKEND_HOST
-              value: "{{ .Values.celery.host }}"
-            - name: CELERY_BACKEND_PORT
-              value: "{{ .Values.celery.port }}"
-            - name: CELERY_BACKEND_DATABASE
-              value: "{{ .Values.celery.db }}"
-            {{- if .Values.celery.flowerAuth }}
-            - name: FLOWER_BASIC_AUTH
-              value: {{ .Values.celery.flowerAuth }}
-            {{- end }}
-            {{- end }}
-# Update environment variables with the secrets if has data defined
-            {{- if .Values.global.dataSecrets }}
-            {{ $releaseName := .Release.Name }}
-            {{- range $secret := .Values.global.dataSecrets }}
-            - name: {{ $secret.name }}
-              valueFrom:
-                secretKeyRef:
-                  name: {{ $releaseName }}
-                  key: {{ $secret.key }}
-            {{- end }}
-            {{- end }}
-# Update environment variables with the config map values if has data defined
-            {{- if .Values.global.dataConfigMap }}
-            {{ $releaseName := .Release.Name }}
-            {{- range $configmap := .Values.global.dataConfigMap }}
-            - name: {{ $configmap.name }}
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ $releaseName }}
-                  key: {{ $configmap.key }}
-            {{- end }}
-            {{- end }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}
+            - secretRef:
+                name: {{ .Release.Name }}
           resources:
 {{ toYaml .Values.deployment.resources | indent 12 }}
 # This configuration could be used as a uwsgi app, cron, celery or django-rq deployment, so you
