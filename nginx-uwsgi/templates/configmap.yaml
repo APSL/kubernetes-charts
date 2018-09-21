@@ -10,20 +10,25 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-  django.enableSentry: "{{ .Values.configMap.enableSentry }}"
-  django.databaseHost: "{{ .Values.configMap.databaseHost }}"
-  django.databasePort: "{{ .Values.configMap.databasePort }}"
-  django.databaseName: "{{ .Values.configMap.databaseName }}"
-  django.databaseUser: "{{ .Values.configMap.databaseUser }}"
-  django.uwsgiAddr: "{{ .Values.configMap.uwsgiAddr }}"
-  django.enableBasicAuth: "{{ .Values.configMap.enableBasicAuth }}"
-  django.enableHttpsRedirect: "{{ .Values.configMap.enableHttpsRedirect }}"
-  django.enable3wRedirect: "{{ .Values.configMap.enable3wRedirect }}"
+  ENABLE_BASIC_AUTH: "{{ .Values.configMap.enableBasicAuth }}"
+  ENABLE_3W_REDIRECT: "{{ .Values.configMap.enable3wRedirect }}"
+  ENABLE_HTTPS_REDIRECT: "{{ .Values.configMap.enableHttpsRedirect }}"
+  UWSGI_ADDR: "{{ .Values.configMap.uwsgiAddr }}"
 
-{{- if .Values.global.dataConfigMap }}
-{{- range $configmap := .Values.global.dataConfigMap }}
+  DATABASE_HOST: "{{ .Values.configMap.databaseHost }}"
+  DATABASE_PORT: "{{ .Values.configMap.databasePort }}"
+  DATABASE_NAME: "{{ .Values.configMap.databaseName }}"
+  DATABASE_USER: "{{ .Values.configMap.databaseUser }}"
+
+  SENTRY_ENABLED: "{{ .Values.configMap.enableSentry }}"
+
+  REDIS_HOST: "{{ .Release.Name }}-redis"
+  REDIS_PORT: "{{ .Values.deployment.redisPort }}"
+
+# Configure other environment variables
+  {{- if .Values.global.dataConfigMap }}
+  {{- range $configmap := .Values.global.dataConfigMap }}
   {{ $configmap.key }}: "{{ $configmap.value }}"
-{{- end }}
-{{- end }}
-
+  {{- end }}
+  {{- end }}
 {{- end }}

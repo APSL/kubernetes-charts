@@ -156,6 +156,78 @@ helm template -n NAMESPACE -r RELEASE_NAME -f VALUES --notes CHART > output.yaml
 helm template -n demo -r r-demo -f your_demo_app_values.yaml --notes . > ~/k8s-deployment.yaml
 ```
 
+## Structure example of data values
+
+This section show you how structure the values to deploy a single
+application using `django-nginx-uwsgi` chart.
+
+```
+# your_demo_app_values.yaml
+global:
+  image:
+    uwsgi: eu.gcr.io/project/my-app-uwsgi
+    nginx: eu.gcr.io/project/my-app-nginx
+    cloudsqlProxy:
+      project: project
+      name: project
+      zone: europe-west1
+      port: 5432
+
+  dataConfigMap:
+    - name: REDIS_HOST
+      value: "10.0.0.1"
+    - name: DEFAULT_FROM_EMAIL
+      key: django.emailDefaultFromEmail
+      value: Hotel Morito <bookmorito@hotelmorito.es>
+    - name: AWS_STORAGE_BUCKET_NAME
+      value: my-app-prod
+    - name: AWS_ACCESS_KEY_ID
+      value: aws-key-id
+
+  dataSecrets:
+    - name: AWS_SECRET_ACCESS_KEY
+      value: secret-aws-access-ley
+
+app:
+  deployment:
+    probes:
+      livenessEnabled: true
+      liveness:
+        enabled: false
+
+  replicaCount: 1
+
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+
+  secrets:
+    secretKey: django-secret-key-value
+    passwordDB: django-passwd-db-value
+    sentryDSN: sentry-dsn-value
+
+  configMap:
+    enableSentry: "True"
+    databaseHost: 127.0.0.1
+    databaseName: myappdb
+    databasePort: "5432"
+    databaseUser: usrmyapp
+    enableBasicAuth: "False"
+    enableHttpsRedirect: "True"
+    enable3wRedirect: "True"
+
+varnish:
+  enabled: true
+
+crons:
+  enabled: false
+
+redis:
+  enabled: false
+
+```
 
 # Contributors
 
@@ -186,10 +258,11 @@ helm lint django-nginx-uwsgi
 
 ## Building package
 
-If you contribute creating niw Charts or improving the existent you
+If you contribute creating new Charts or improving the existent you
 should do this:
 
 * Serve your packages locally
+* Resolve repository dependencies (local repository)
 * Update dependent locally repositories your Chart
 * Generate your package
 * Regenerate index-yaml

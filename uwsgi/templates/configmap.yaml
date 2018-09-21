@@ -10,17 +10,35 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-  django.enableSentry: "{{ .Values.configMap.enableSentry }}"
-  django.databaseHost: "{{ .Values.configMap.databaseHost }}"
-  django.databasePort: "{{ .Values.configMap.databasePort }}"
-  django.databaseName: "{{ .Values.configMap.databaseName }}"
-  django.databaseUser: "{{ .Values.configMap.databaseUser }}"
-  django.enableBasicAuth: "{{ .Values.configMap.enableBasicAuth }}"
-  django.enableHttpsRedirect: "{{ .Values.configMap.enableHttpsRedirect }}"
-  django.enable3wRedirect: "{{ .Values.configMap.enable3wRedirect }}"
-{{- if .Values.global.dataConfigMap }}
-{{- range $configmap := .Values.global.dataConfigMap }}
+  ENABLE_BASIC_AUTH: "{{ .Values.configMap.enableBasicAuth }}"
+  ENABLE_HTTPS_REDIRECT: "{{ .Values.configMap.enableHttpsRedirect }}"
+  ENABLE_3W_REDIRECT: "{{ .Values.configMap.enable3wRedirect }}"
+
+  DATABASE_HOST: "{{ .Values.configMap.databaseHost }}"
+  DATABASE_PORT: "{{ .Values.configMap.databasePort }}"
+  DATABASE_NAME: "{{ .Values.configMap.databaseName }}"
+  DATABASE_USER: "{{ .Values.configMap.databaseUser }}"
+
+  SENTRY_ENABLED: "{{ .Values.configMap.enableSentry }}"
+
+  REDIS_HOST: "{{ .Release.Name }}-redis"
+  REDIS_PORT: "{{ .Values.deployment.redisPort }}"
+
+# Environment variables to configure celery
+  {{- if .Values.celery.enabled }}
+  CELERY_BACKEND_TYPE: "{{ .Values.celery.backend }}"
+  CELERY_BACKEND_HOST: "{{ .Values.celery.host }}"
+  CELERY_BACKEND_PORT: "{{ .Values.celery.port }}"
+  CELERY_BACKEND_DATABASE: "{{ .Values.celery.db }}"
+  {{- if .Values.celery.flowerAuth }}
+  FLOWER_BASIC_AUTH: "{{ .Values.celery.flowerAuth }}"
+  {{- end }}
+  {{- end }}
+
+# Configure other environment variables
+  {{- if .Values.global.dataConfigMap }}
+  {{- range $configmap := .Values.global.dataConfigMap }}
   {{ $configmap.key }}: "{{ $configmap.value }}"
-{{- end }}
-{{- end }}
+  {{- end }}
+  {{- end }}
 {{- end }}
