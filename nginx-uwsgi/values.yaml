@@ -40,24 +40,22 @@ deployment:
     liveness:
       enabled: true
       command: /entrypoint.sh
-      args: launch-probe
-      delay: 90
+      args: launch-liveness-probe
+      delay: 45
       timeout: 5
-      threshold: 3
-      period: 10
+      threshold: 5
+      period: 30
       success: 1
     readiness:
       enabled: true
       command: /entrypoint.sh
-      args: launch-probe
+      args: launch-readiness-probe
       delay: 10
       timeout: 5
-      threshold: 30
-      period: 10
+      threshold: 5
+      period: 30
       success: 1
   resources:
-    limits:
-      memory: 500Mi
     requests:
       memory: 50Mi
   sentry:
@@ -73,8 +71,16 @@ deployment:
       - name: http
         containerPort: 80
     probes:
-      livenessEnabled: true
-      redinessEnabled: true
+      liveness:
+        enabled: true
+        httpPath: /nginx/healthz
+        initialDelay: 30
+        timeout: 5
+      readiness:
+        enabled: true
+        httpPath: /nginx/healthz
+        initialDelay: 5
+        timeout: 5
     resources:
       requests:
         cpu: 10m

@@ -1,6 +1,14 @@
 # Default values for django app
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+.commons: &commons
+  secrets:
+    enabled: false
+  service:
+    enabled: false
+  configMap:
+    enabled: false
+
 
 global:
   dataSecrets:
@@ -19,14 +27,9 @@ nginx-uwsgi:
 
 crons:
   enabled: true
-  secrets:
-    enabled: false
-  service:
-    enabled: false
-  configMap:
-    enabled: false
   crons:
     enabled: true
+  <<: *commons
   deployment:
     probes:
       liveness:
@@ -35,14 +38,9 @@ crons:
 
 celery:
   enabled: false
-  secrets:
-    enabled: false
-  service:
-    enabled: false
-  configMap:
-    enabled: false
   celery:
     enabled: true
+  <<: *commons
   deployment:
     probes:
       liveness:
@@ -53,20 +51,26 @@ celery:
 
 rq:
   enabled: false
-  secrets:
-    enabled: false
-  service:
-    enabled: false
-  configMap:
-    enabled: false
   djangoRQ:
     enabled: true
+  <<: *commons
   deployment:
     probes:
       liveness:
         enabled: false
       readiness:
         enabled: false
+
+
+migrations:
+  enabled: true
+  <<: *commons
+  deployment:
+    probes:
+      liveness:
+        enabled: false
+    args:
+      - run-migrations
 
 
 redis:
@@ -88,3 +92,4 @@ redis:
 varnish:
   enabled: true
   backendHost: ""
+

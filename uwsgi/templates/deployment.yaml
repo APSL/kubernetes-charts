@@ -82,13 +82,26 @@ spec:
           {{- if .Values.djangoRQ.enabled }}
           args: {{ .Values.djangoRQ.args }}
           {{- end }}
-        {{- if .Values.deployment.cloudsqlProxy.enabled }}
+# Update the command
+          {{- if .Values.deployment.command }}
+          command:
+            {{- range $cmd := .Values.deployment.command }}
+            - {{ $cmd }}
+            {{- end }}
+          {{- end}}
+# Update the command arguments
+          {{- if .Values.deployment.args }}
+          args:
+            {{- range $arg := .Values.deployment.args }}
+            - {{ $arg }}
+            {{- end }}
+          {{- end}}
 # Cloud SQL proxy container
 # The default configuration configure a proxy to a persistent database using a proxy container,
 # but you can disable it with <deployment.cloudsqlProxy.enabled> value.
 # Note: Is mandatory have generated a new service account for the project and have create a secret
 # with the `json` resultant file account.
-{{- if .Values.deployment.cloudsqlProxy.enabled }}
+        {{- if .Values.deployment.cloudsqlProxy.enabled }}
         - name: {{ .Values.deployment.cloudsqlProxy.name }}
           image: "gcr.io/cloudsql-docker/gce-proxy:{{ .Values.global.cloudsqlProxy.tag }}"
           imagePullPolicy: {{ .Values.deployment.cloudsqlProxy.pullPolicy }}
@@ -115,10 +128,12 @@ spec:
       {{- end }}
 
       volumes:
+# Only should mount the secrets if Cloud SQL proxy is enabled
+        {{- if .Values.deployment.cloudsqlProxy.enabled }}
         - name: cloudsql-oauth-credentials
           secret:
             secretName: cloudsql-oauth-credentials
         - name: ssl-certs
           hostPath:
             path: /etc/ssl/certs
-{{- end }}
+        {{- end }}

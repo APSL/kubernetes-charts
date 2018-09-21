@@ -1,23 +1,23 @@
 dependencies:
   - name: nginx-uwsgi
-    version: 0.2.0
+    version: 0.2.1
     repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
     alias: app
 
   - name: uwsgi
-    version: 0.2.0
+    version: 0.2.1
     repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
     alias: crons
     condition: crons.enabled
 
   - name: uwsgi
-    version: 0.2.0
+    version: 0.2.1
     repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
     alias: rq
     condition: rq.enabled
 
   - name: uwsgi
-    version: 0.2.0
+    version: 0.2.1
     repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
     alias: celery
     condition: celery.enabled
@@ -31,3 +31,9 @@ dependencies:
     version: 0.8.0
     repository: https://kubernetes-charts.storage.googleapis.com
     condition: redis.enabled
+
+  - name: uwsgi
+    version: 0.2.1
+    repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
+    alias: migrations
+    condition: migrations.enabled
