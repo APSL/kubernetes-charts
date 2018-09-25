@@ -16,8 +16,8 @@ global:
   cloudsqlProxy:
     tag: "1.11"
     ports:
-     - name: postgres
-       containerPort: 5432
+      - name: postgres
+        containerPort: 5432
   dataSecrets:
   dataConfigMap:
 
@@ -39,18 +39,22 @@ deployment:
     liveness:
       enabled: true
       command: /entrypoint.sh
-      args: launch-probe
-      delay: 30
+      args: launch-liveness-probe
+      delay: 45
       timeout: 5
+      threshold: 5
+      period: 30
+      success: 1
     readiness:
       enabled: false
       command: /entrypoint.sh
-      args: launch-probe
-      delay: 5
+      args: launch-readiness-probe
+      delay: 10
       timeout: 5
+      threshold: 5
+      period: 30
+      success: 1
   resources:
-    limits:
-      memory: 500Mi
     requests:
       memory: 50Mi
   sentry:
