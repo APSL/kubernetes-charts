@@ -32,14 +32,17 @@ deployment:
   resources:
     requests:
       cpu: 10m
-
+      memory: 10Mi
+    limits:
+      cpu: 50m
+      memory: 50Mi
 
 
 service:
     enabled: true
     type: NodePort
     externalPort: 80
-    internalPort: 8080
+    internalPort: 8000
 
 
 configMap:

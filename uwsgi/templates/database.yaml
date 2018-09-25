@@ -1,0 +1,11 @@
+{{- if .Values.databaseController.enabled }}
+apiVersion: torchbox.com/v1
+kind: Database
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ .Release.Name }}db
+spec:
+  type: postgresql
+  class: default
+  secretName: {{ .Values.databaseController.secretName }}
+{{- end }}

@@ -1,0 +1,9 @@
+questions:
+- variable: lb.service.namespace
+  label: App Namespace
+  type: string
+  description: Namespace of the deployed app
+- variable: lb.service.name
+  label: App Service Name
+  type: string
+  description: Name of the app service that you want to reference

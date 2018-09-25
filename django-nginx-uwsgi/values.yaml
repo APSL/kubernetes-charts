@@ -11,17 +11,15 @@
 
 
 global:
-  dataSecrets:
-  dataConfigMap:
   image:
     uwsgi: ""
     nginx: ""
+  dataSecrets:
+  dataConfigMap:
 
 
 nginx-uwsgi:
   secrets:
-    secretKey: ""
-    passwordDB: ""
     sentryDSN: ""
 
 
@@ -74,7 +72,7 @@ migrations:
 
 
 redis:
-  enabled: true
+  enabled: false
   image: redis:3.0.7
   usePassword: false
   persistence:

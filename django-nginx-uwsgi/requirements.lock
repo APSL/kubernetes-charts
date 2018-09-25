@@ -1,24 +1,24 @@
 dependencies:
 - name: nginx-uwsgi
-  repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
-  version: 0.2.1
+  repository: file://../nginx-uwsgi
+  version: 0.3.0
 - name: uwsgi
-  repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
-  version: 0.2.1
+  repository: file://../uwsgi
+  version: 0.3.0
 - name: uwsgi
-  repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
-  version: 0.2.1
+  repository: file://../uwsgi
+  version: 0.3.0
 - name: uwsgi
-  repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
-  version: 0.2.1
+  repository: file://../uwsgi
+  version: 0.3.0
 - name: varnish
-  repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
+  repository: file://../varnish
   version: 0.1.0
 - name: redis
   repository: https://kubernetes-charts.storage.googleapis.com
   version: 0.8.0
 - name: uwsgi
-  repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
-  version: 0.2.1
-digest: sha256:9106dadb539a154428c3569d983fd70e0055565c865c349fbfcac5c170cba71f
-generated: 2018-09-25T11:01:00.917355851+02:00
+  repository: file://../uwsgi
+  version: 0.3.0
+digest: sha256:d6aefd5756fa4f9898b0e5b56e4bbf986d2650be7d5858d87ee3c85797635f6b
+generated: 2018-09-25T14:26:10.204702855+02:00

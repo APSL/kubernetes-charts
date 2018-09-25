@@ -1,0 +1,27 @@
+questions:
+- variable: global.image.uwsgi
+  label: uWSGI Image
+  type: string
+- variable: global.image.nginx
+  label: Nginx Image
+  type: string
+- variable: app.secrets.sentryDSN
+  label: Sentry DSN
+  type: string
+- variable: varnish.enabled
+  default: "false"
+  label: Use Varnish
+  type: boolean
+- variable: crons.enabled
+  default: "false"
+  label: Use Crons
+  type: boolean
+- variable: app.configMap.enableBasicAuth
+  default: "false"
+  label: Use Basic auth
+  type: boolean
+  description: Use demo/demo to login
+- variable: app.configMap.enable3wRedirect
+  default: "false"
+  label: Use www redirect
+  type: boolean
