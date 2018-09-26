@@ -9,11 +9,12 @@ global:
     uwsgi: ""
     nginx: ""
     cloudsqlProxy:
-      project: apsl-hosting
-      name: apsl-hosting
-      zone: europe-west1
+      project: ""
+      name: ""
+      zone: ""
       port: "5432"
       filename: cloudsql-authorization.json
+      image: gcr.io/cloudsql-docker/gce-proxy
   cloudsqlProxy:
     tag: "1.11"
     ports:
@@ -25,6 +26,7 @@ global:
 
 replicaCount: 1
 strategy:
+  type: RollingUpdate
   rollingUpdate:
     maxSurge: 1
     maxUnavailable: 0
@@ -56,11 +58,16 @@ deployment:
       period: 30
       success: 1
   resources:
+    limits:
+      cpu: 250m
+      memory: 512Mi
     requests:
-      memory: 50Mi
+      cpu: 100m
+      memory: 128Mi
   sentry:
     enabled: true
   redisPort: "6379"
+  redisHost: ""
   cloudsqlProxy:
     enabled: true
     name: cloudsql-proxy
@@ -84,17 +91,32 @@ deployment:
     resources:
       requests:
         cpu: 10m
+        memory: 10Mi
+      limits:
+        cpu: 50m
+        memory: 50Mi
+  pgBouncer:
+    enabled: true
+    port: 6543
+    poolMode: "transaction"
+    maxClientConn: 128
+    maxDBConnections: 2
+    listenBacklog: 4096
+  metrics:
+    enabled: true
+    prometheus: false
 
 
 service:
     enabled: true
     type: NodePort
     externalPort: 80
-    internalPort: 8080
+    internalPort: 8000
 
 
 configMap:
     enabled: true
+    uwsgiAddr: "127.0.0.1:8080"
     enableBasicAuth: "True"
     enable3wRedirect: "True"
     enableHttpsRedirect: "True"
@@ -103,6 +125,9 @@ configMap:
     databaseName: ""
     databaseUser: apsl
     enableSentry: "True"
+    compressEnabled: "True"
+    compressOffline: "True"
+    allowedHosts: "*"
 
 
 secrets:
@@ -110,12 +135,15 @@ secrets:
   type: Opaque
   cloudsql:
     name: cloudsql-oauth-credentials
-  secretKey: ""
-  passwordDB: ""
   sentryDSN: ""
-
+  passwordDB: ""
 
 crons:
   enabled: false
   args:
     - run-crons
+
+
+databaseController:
+  enabled: false
+  secretName: db-secret

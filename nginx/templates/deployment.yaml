@@ -17,6 +17,7 @@ spec:
 {{- end }}
   template:
     metadata:
+
       labels:
         app: {{ template "fullname" . }}
         tier: {{ .Values.deployment.labels.tier }}
@@ -29,21 +30,21 @@ spec:
           imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.internalPort }}
-          {{- if .Values.deployment.probes.livenessEnabled }}
+          {{- if .Values.deployment.probes.liveness.enabled }}
           livenessProbe:
             httpGet:
-              path: /nginx/healthz
-              port: 8888
-            initialDelaySeconds: 30
-            timeoutSeconds: 5
+              path: {{ .Values.deployment.probes.liveness.httpPath }}
+              port: 80
+            initialDelaySeconds: {{ .Values.deployment.probes.liveness.initialDelay }}
+            timeoutSeconds: {{ .Values.deployment.probes.liveness.timeout }}
           {{- end }}
-          {{- if .Values.deployment.probes.readinessEnabled }}
+          {{- if .Values.deployment.probes.readiness.enabled }}
           readinessProbe:
             httpGet:
-              path: /nginx/healthz
-              port: 8888
-            initialDelaySeconds: 5
-            timeoutSeconds: 5
+              path: {{ .Values.deployment.probes.readiness.httpPath }}
+              port: 80
+            initialDelaySeconds: {{ .Values.deployment.probes.readiness.initialDelay }}
+            timeoutSeconds: {{ .Values.deployment.probes.readiness.timeout }}
           {{- end }}
           env:
             - name: ENABLE_BASIC_AUTH
@@ -63,6 +64,57 @@ spec:
                   key: app.force3WRedirect
           resources:
 {{ toYaml .Values.deployment.resources | indent 12 }}
+
+# Metrics containers
+        {{- if .Values.deployment.metrics.enabled }}
+        - name: {{ .Release.Name }}-nginx-exporter
+          image: fish/nginx-exporter
+          args:
+          - --nginx.scrape_uri=http://localhost/nginx/status
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 10m
+              memory: 10Mi
+            limits:
+              cpu: 100m
+              memory: 25M
+          ports:
+          - name: metrics
+            containerPort: 9113
+          livenessProbe:
+            httpGet:
+              path: /-/healthy
+              port: 9113
+        {{- if not .Values.deployment.metrics.prometheus }}
+        - name: prometheus-to-sd
+          image: gcr.io/google-containers/prometheus-to-sd:v0.3.1
+          command:
+          - /monitor
+          - --source=:http://localhost:9113/metrics # nginx
+          - --stackdriver-prefix=custom.googleapis.com
+          - --pod-id=$(POD_ID)
+          - --namespace-id=$(POD_NAMESPACE)
+          env:
+          - name: POD_ID
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          resources:
+            requests:
+              cpu: 10m
+              memory: 20Mi
+            limits:
+              cpu: 100m
+              memory: 50Mi
+        {{- end }}
+        {{- end }}
+
       {{- if .Values.deployment.nodeSelector }}
       nodeSelector:
 {{ toYaml .Values.deployment.nodeSelector | indent 8 }}
