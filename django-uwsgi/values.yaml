@@ -64,6 +64,8 @@ rq:
 migrations:
   enabled: true
   <<: *commons
+  strategy:
+    type: Recreate
   deployment:
     probes:
       liveness:
