@@ -8,21 +8,17 @@ global:
   image:
     uwsgi: ""
     nginx: ""
-    cloudsqlProxy:
-      project: ""
-      name: ""
-      zone: ""
-      port: "5432"
-      filename: cloudsql-authorization.json
-      image: gcr.io/cloudsql-docker/gce-proxy
-  cloudsqlProxy:
-    tag: "1.11"
-    ports:
-     - name: postgres
-       containerPort: 5432
+    tag: "latest"
   dataSecrets:
   dataConfigMap:
-
+  cloudSql:
+    host: ""
+  celery:
+    brokerUrl: ""
+  databaseController:
+    secret:
+      shared: false
+      name: db-secret
 
 replicaCount: 1
 strategy:
@@ -36,7 +32,6 @@ deployment:
   labels:
     tier: web
   image:
-    tag: latest
     pullPolicy: Always
   probes:
     liveness:
@@ -66,12 +61,10 @@ deployment:
       memory: 128Mi
   sentry:
     enabled: true
-  redisPort: "6379"
-  redisHost: ""
-  cloudsqlProxy:
-    enabled: true
-    name: cloudsql-proxy
-    pullPolicy: IfNotPresent
+  redis:
+    host: ""
+    port: "6379"
+    database: "1"
   nginx:
     enabled: true
     ports:
@@ -98,6 +91,7 @@ deployment:
   pgBouncer:
     enabled: true
     port: 6543
+    targetPort: 5432
     poolMode: "transaction"
     maxClientConn: 128
     maxDBConnections: 2
@@ -133,10 +127,9 @@ configMap:
 secrets:
   enabled: true
   type: Opaque
-  cloudsql:
-    name: cloudsql-oauth-credentials
   sentryDSN: ""
   passwordDB: ""
+
 
 crons:
   enabled: false
@@ -146,4 +139,3 @@ crons:
 
 databaseController:
   enabled: false
-  secretName: db-secret

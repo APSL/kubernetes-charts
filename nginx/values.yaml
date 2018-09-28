@@ -7,6 +7,7 @@
 global:
   image:
     nginx: ""
+    tag: "latest"
   dataConfigMap:
 
 
@@ -21,7 +22,6 @@ deployment:
   labels:
     tier: web
   image:
-    tag: latest
     pullPolicy: Always
   ports:
     - name: http
@@ -47,6 +47,7 @@ deployment:
   metrics:
     enabled: true
     prometheus: false
+
 
 service:
     enabled: true

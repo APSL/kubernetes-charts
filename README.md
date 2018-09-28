@@ -167,11 +167,6 @@ global:
   image:
     uwsgi: eu.gcr.io/project/my-app-uwsgi
     nginx: eu.gcr.io/project/my-app-nginx
-    cloudsqlProxy:
-      project: project
-      name: project
-      zone: europe-west1
-      port: 5432
 
   dataConfigMap:
     - name: REDIS_HOST

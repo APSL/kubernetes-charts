@@ -17,7 +17,12 @@ spec:
       tier: {{ .Values.deployment.labels.tier }}
 {{- if .Values.strategy }}
   strategy:
-{{ toYaml .Values.strategy | indent 4 }}
+    type: {{ .Values.strategy.type }}
+    {{- if eq ".Values.strategy.type" "RollingUpdate" }}
+    rollingUpdate:
+      maxSurge: {{ .Values.strategy.maxSurge }}
+      maxUnavailable: {{ .Values.strategy.maxUnavailable }}
+    {{- end }}
 {{- end }}
   template:
     metadata:
@@ -40,7 +45,7 @@ spec:
       containers:
 # App container
         - name: {{ .Release.Name }}-uwsgi
-          image: {{ .Values.global.image.uwsgi }}:{{ .Values.deployment.image.tag }}
+          image: {{ .Values.global.image.uwsgi }}:{{ .Values.global.image.tag }}
           imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
           {{- if .Values.deployment.probes.liveness.enabled }}
           livenessProbe:
@@ -80,22 +85,22 @@ spec:
                 name: {{ .Release.Name }}
             - secretRef:
                 name: {{ .Release.Name }}
-          {{- if .Values.databaseController.enabled }}
+          {{- if .Values.global.databaseController.secret.shared }}
           env:
             - name: DATABASE_NAME
               valueFrom:
                 secretKeyRef:
-                  name: db-secret
+                  name: {{ .Values.global.databaseController.secret.name }}
                   key: database-name
             - name: DATABASE_USER
               valueFrom:
                 secretKeyRef:
-                  name: db-secret
+                  name: {{ .Values.global.databaseController.secret.name }}
                   key: database-user
             - name: DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: db-secret
+                  name: {{ .Values.global.databaseController.secret.name }}
                   key: database-password
           {{- end }}
           volumeMounts:
@@ -104,45 +109,6 @@ spec:
               readOnly: False
           resources:
 {{ toYaml .Values.deployment.resources | indent 12 }}
-# Update the command
-          {{- if .Values.deployment.command }}
-          command:
-            {{- range $cmd := .Values.deployment.command }}
-            - {{ $cmd }}
-            {{- end }}
-          {{- end}}
-# Update the command arguments
-          {{- if .Values.deployment.args }}
-          args:
-            {{- range $arg := .Values.deployment.args }}
-            - {{ $arg }}
-            {{- end }}
-          {{- end}}
-# Cloud SQL proxy container
-# The default configuration configure a proxy to a persistent database using a proxy container,
-# but you can disable it with <deployment.cloudsqlProxy.enabled> value.
-# Note: Is mandatory have generated a new service account for the project and have create a secret
-# with the `json` resultant file account.
-        {{- if .Values.deployment.cloudsqlProxy.enabled }}
-        - name: {{ .Values.deployment.cloudsqlProxy.name }}
-          image: "{{ .Values.global.image.cloudsqlProxy.image }}:{{ .Values.global.cloudsqlProxy.tag }}"
-          imagePullPolicy: {{ .Values.deployment.cloudsqlProxy.pullPolicy }}
-          {{- if .Values.global.cloudsqlProxy.ports }}
-          ports:
-{{ toYaml .Values.global.cloudsqlProxy.ports | indent 12 }}
-          {{- end }}
-          command:
-            - /cloud_sql_proxy
-            - --dir=/cloudsql
-            - -instances={{ .Values.global.image.cloudsqlProxy.project }}:{{ .Values.global.image.cloudsqlProxy.zone }}:{{ .Values.global.image.cloudsqlProxy.name }}=tcp:{{ .Values.global.image.cloudsqlProxy.port }}
-            - -credential_file=/secrets/cloudsql/{{ .Values.global.image.cloudsqlProxy.filename }}
-          volumeMounts:
-            - name: cloudsql-oauth-credentials
-              mountPath: /secrets/cloudsql
-              readOnly: True
-            - name: ssl-certs
-              mountPath: /etc/ssl/certs
-        {{- end }}
 
 # PgBouncer container
         {{- if .Values.deployment.pgBouncer.enabled }}
@@ -150,22 +116,19 @@ spec:
           image: brainsam/pgbouncer:1.8.1
           env:
           - name: DB_HOST
-            valueFrom:
-              configMapKeyRef:
-                name: {{ .Release.Name }}
-                key: DATABASE_HOST
+            value: "{{ .Values.global.cloudSql.host }}"
           - name: DB_PORT
-            value: "{{ .Values.configMap.databasePort }}"
-          {{- if .Values.databaseController.enabled }}
+            value: "{{ .Values.deployment.pgBouncer.targetPort }}"
+          {{- if .Values.global.databaseController.secret.shared }}
           - name: DB_USER
             valueFrom:
               secretKeyRef:
-                name: db-secret
+                name: {{ .Values.global.databaseController.secret.name }}
                 key: database-user
           - name: DB_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: db-secret
+                name: {{ .Values.global.databaseController.secret.name }}
                 key: database-password
           {{- else }}
           - name: DB_USER
@@ -209,7 +172,7 @@ spec:
 # <deployment.nginx.enabled> value.
         {{- if .Values.deployment.nginx.enabled }}
         - name: {{ .Release.Name }}-nginx
-          image: {{ .Values.global.image.nginx }}:{{ .Values.deployment.image.tag }}
+          image: {{ .Values.global.image.nginx }}:{{ .Values.global.image.tag }}
           imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.internalPort }}
@@ -298,16 +261,16 @@ spec:
                 key: DATABASE_HOST
           - name: PGBOUNCER_PORT
             value: "{{ .Values.deployment.pgBouncer.port }}"
-          {{- if .Values.databaseController.enabled }}
+          {{- if .Values.global.databaseController.secret.shared }}
           - name: PGBOUNCER_USER
             valueFrom:
               secretKeyRef:
-                name: db-secret
+                name: {{ .Values.global.databaseController.secret.name }}
                 key: database-user
           - name: PGBOUNCER_PASS
             valueFrom:
               secretKeyRef:
-                name: db-secret
+                name: {{ .Values.global.databaseController.secret.name }}
                 key: database-password
           {{- else }}
           - name: PGBOUNCER_USER
@@ -375,15 +338,5 @@ spec:
       {{- end }}
 
       volumes:
-# Only should mount the secrets if Cloud SQL proxy is enabled
-        {{- if .Values.deployment.cloudsqlProxy.enabled }}
-        - name: cloudsql-oauth-credentials
-          secret:
-            secretName: cloudsql-oauth-credentials
-        - name: ssl-certs
-          hostPath:
-            path: /etc/ssl/certs
-        {{- end }}
-
         - name: data-nginx
           emptyDir: {}

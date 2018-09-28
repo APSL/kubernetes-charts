@@ -8,12 +8,20 @@
     enabled: false
   configMap:
     enabled: false
+  strategy:
+    type: Recreate
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
 
 
 global:
   image:
     uwsgi: ""
     nginx: ""
+    tag: ""
   dataSecrets:
   dataConfigMap:
 
@@ -33,11 +41,13 @@ crons:
     probes:
       liveness:
         enabled: false
+      readiness:
+        enabled: true
 
 
-celery:
-  enabled: false
-  celery:
+migrations:
+  enabled: true
+  migrations:
     enabled: true
   <<: *commons
   deployment:
@@ -45,33 +55,28 @@ celery:
       liveness:
         enabled: false
       readiness:
-        enabled: false
+        enabled: true
 
+
+celery:
+  enabled: false
+  <<: *commons
+
+
+celery-beat:
+  enabled: false
+  <<: *commons
+  deployment:
+    args:
+      - run-celery-beat
+    metrics:
+      enabled: false
 
 rq:
   enabled: false
   djangoRQ:
     enabled: true
   <<: *commons
-  deployment:
-    probes:
-      liveness:
-        enabled: false
-      readiness:
-        enabled: false
-
-
-migrations:
-  enabled: true
-  <<: *commons
-  strategy:
-    type: Recreate
-  deployment:
-    probes:
-      liveness:
-        enabled: false
-    args:
-      - run-migrations
 
 
 redis:

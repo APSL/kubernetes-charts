@@ -15,13 +15,14 @@ data:
   ENABLE_HTTPS_REDIRECT: "{{ .Values.configMap.enableHttpsRedirect }}"
   ALLOWED_HOSTS: "{{ .Values.configMap.allowedHosts }}"
 
-  DATABASE_HOST: "{{ .Values.configMap.databaseHost }}"
   {{- if .Values.deployment.pgBouncer.enabled }}
+  DATABASE_HOST: "{{ .Values.configMap.databaseHost }}"
   DATABASE_PORT: "{{ .Values.deployment.pgBouncer.port }}"
   {{- else }}
+  DATABASE_HOST: "{{ .Values.deployment.cloudSql.host }}"
   DATABASE_PORT: "{{ .Values.configMap.databasePort }}"
   {{- end }}
-  {{- if not .Values.databaseController.enabled }}
+  {{- if not .Values.global.databaseController.enabled }}
   DATABASE_NAME: "{{ .Values.configMap.databaseName }}"
   DATABASE_USER: "{{ .Values.configMap.databaseUser }}"
   {{- end }}
@@ -31,18 +32,16 @@ data:
 
   SENTRY_ENABLED: "{{ .Values.configMap.enableSentry }}"
 
+  {{- if .Values.deployment.redis.host }}
+  REDIS_HOST: "{{ .Values.deployment.redis.host }}"
+  {{- else }}
   REDIS_HOST: "{{ .Release.Name }}-redis"
-  REDIS_PORT: "{{ .Values.deployment.redisPort }}"
-
-  # Environment variables to configure celery
-  {{- if .Values.celery.enabled }}
-  CELERY_BACKEND_TYPE: "{{ .Values.celery.backend }}"
-  CELERY_BACKEND_HOST: "{{ .Values.celery.host }}"
-  CELERY_BACKEND_PORT: "{{ .Values.celery.port }}"
-  CELERY_BACKEND_DATABASE: "{{ .Values.celery.db }}"
-  {{- if .Values.celery.flowerAuth }}
-  FLOWER_BASIC_AUTH: "{{ .Values.celery.flowerAuth }}"
   {{- end }}
+  REDIS_PORT: "{{ .Values.deployment.redis.port }}"
+  CACHE_REDIS_DB: "{{ .Values.deployment.redis.database }}"
+
+  {{- if .Values.global.celery.brokerUrl }}
+  CELERY_BROKER_URL: "{{ .Values.global.celery.brokerUrl }}"
   {{- end }}
 
   # Configure other environment variables
