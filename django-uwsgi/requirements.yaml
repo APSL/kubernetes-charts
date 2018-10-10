@@ -1,28 +1,28 @@
 dependencies:
   - name: uwsgi
-    version: 0.3.0
+    version: 0.4.0
     repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
 
   - name: uwsgi
-    version: 0.3.0
+    version: 0.4.0
     repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
     alias: crons
     condition: crons.enabled
 
   - name: uwsgi
-    version: 0.3.0
+    version: 0.4.0
     repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
     alias: rq
     condition: rq.enabled
 
-  - name: uwsgi
-    version: 0.3.0
+  - name: django-celery
+    version: 0.1.0
     repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
     alias: celery
     condition: celery.enabled
 
   - name: varnish
-    version: 0.3.0
+    version: 0.1.0
     repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
     condition: varnish.enabled
 

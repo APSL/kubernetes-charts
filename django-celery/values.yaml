@@ -1,4 +1,4 @@
-# Default values for uwsgi.
+# Default values for celery.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -29,14 +29,14 @@ strategy:
 
 deployment:
   labels:
-    tier: web
+    tier: celery
   image:
     pullPolicy: Always
   probes:
     liveness:
       enabled: true
       command: /entrypoint.sh
-      args: launch-liveness-probe
+      args: launch-celery-liveness-probe
       delay: 45
       timeout: 5
       threshold: 5
@@ -54,16 +54,14 @@ deployment:
   resources:
     limits:
       cpu: 250m
-      memory: 512Mi
+      memory: 256Mi
     requests:
       cpu: 100m
       memory: 128Mi
+  args:
+    - run-celery
   sentry:
     enabled: true
-  redis:
-    host: ""
-    port: "6379"
-    database: "1"
   pgBouncer:
     enabled: true
     port: 6543
@@ -73,57 +71,8 @@ deployment:
     maxDBConnections: 2
     listenBacklog: 4096
   metrics:
-    enabled: false
+    enabled: true
     prometheus: false
-
-
-service:
-    enabled: true
-    type: NodePort
-    externalPort: 80
-    internalPort: 8080
-
-
-configMap:
-    enabled: true
-    uwsgiAddr: "127.0.0.1:8080"
-    enableBasicAuth: "True"
-    enable3wRedirect: "True"
-    enableHttpsRedirect: "True"
-    databaseHost: "127.0.0.1"
-    databasePort: "5432"
-    databaseName: ""
-    databaseUser: apsl
-    enableSentry: "True"
-    compressEnabled: "True"
-    compressOffline: "True"
-    allowedHosts: "*"
-
-
-secrets:
-  enabled: true
-  type: Opaque
-  sentryDSN: ""
-  passwordDB: ""
-
-
-crons:
-  enabled: false
-  args:
-    - run-crons
-
-
-djangoRQ:
-  enabled: false
-  args:
-    - run-rq
-
-
-migrations:
-  enabled: false
-  args:
-    - run-migrations
-
 
 databaseController:
   enabled: false

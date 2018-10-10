@@ -7,5 +7,5 @@ metadata:
 spec:
   type: postgresql
   class: default
-  secretName: {{ .Values.databaseController.secretName }}
+  secretName: {{ .Values.global.databaseController.secret.name }}
 {{- end }}

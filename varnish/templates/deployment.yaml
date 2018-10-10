@@ -39,7 +39,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: {{ .Release.Name }}
-                  key: django.enableBasicAuth
+                  key: ENABLE_BASIC_AUTH
             - name: VARNISH_BACKEND_HOST
               value: {{ .Release.Name }}{{- if .Values.backendHost }}-{{ .Values.backendHost }}{{- end }}
             - name: VARNISH_PORT

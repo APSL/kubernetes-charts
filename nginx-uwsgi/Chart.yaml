@@ -1,11 +1,11 @@
 apiVersion: v1
 name: nginx-uwsgi
-version: 0.3.0
+icon: https://apsl.github.io/kubernetes-charts/images/nginx-uwsgi.png
+version: 0.4.0
 keywords:
   - template
   - nginx
   - uwsgi
-  - proxysql
 description: >
     This Chart is for applications served using uwsgi and nginx server. So, it will deploy over K8s a pod with a uwsgi
     and a nginx container.

@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: {{ .Release.Name }}-nginx
-          image: {{ .Values.global.image.nginx }}:{{ .Values.deployment.image.tag }}
+          image: {{ .Values.global.image.nginx }}:{{ .Values.global.image.tag }}
           imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.internalPort }}
