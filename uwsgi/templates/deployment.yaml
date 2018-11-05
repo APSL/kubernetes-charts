@@ -152,6 +152,8 @@ spec:
             value: "{{ .Values.deployment.pgBouncer.maxDBConnections }}"
           - name: LISTEN_BACKLOG
             value: "{{ .Values.deployment.pgBouncer.listenBacklog }}"
+          - name: QUIET
+            value: "true"
           imagePullPolicy: IfNotPresent
           ports:
           - containerPort: {{ .Values.deployment.pgBouncer.port }}
