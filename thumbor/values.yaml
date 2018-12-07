@@ -1,0 +1,132 @@
+# Default values for thumbor.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+global:
+  image:
+    repository: ""
+  tag:
+    uwsgi: ""
+    nginx: ""
+  dataSecrets:
+  dataConfigMap:
+
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+
+replicaCount: 1
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
+
+
+service:
+    enabled: true
+    type: NodePort
+    externalPort: 80
+    internalPort: 8080
+
+
+deployment:
+  labels:
+    tier: smart-imaging-service
+  image:
+    pullPolicy: Always
+  thumbor:
+    ports:
+      containerPort: 8000
+  probes:
+    liveness:
+      enabled: true
+      httpPath: /healthcheck
+      delay: 45
+      timeout: 5
+      threshold: 5
+      period: 30
+      success: 1
+    readiness:
+      enabled: true
+      httpPath: /healthcheck
+      delay: 10
+      timeout: 5
+      threshold: 5
+      period: 30
+      success: 1
+  resources:
+    limits:
+      cpu: 250m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  storages:
+    use_file_storage: true
+    use_redis_storage: false
+    use_file_result_storage: true
+    use_redis_result_storage: false
+  sentry:
+    enabled: true
+  nginx:
+    enabled: true
+    ports:
+      containerPort: 8080
+    probes:
+      liveness:
+        enabled: true
+        httpPath: /nginx/healthz
+        initialDelay: 30
+        timeout: 5
+      readiness:
+        enabled: true
+        httpPath: /nginx/healthz
+        initialDelay: 5
+        timeout: 5
+    resources:
+      requests:
+        cpu: 10m
+        memory: 10Mi
+      limits:
+        cpu: 50m
+        memory: 50Mi
+  metrics:
+    enabled: true
+    prometheus: false
+
+
+redis:
+  enabled: false
+  image:
+    tag: 3.0.7
+  usePassword: false
+  master:
+    persistence:
+      enabled: false
+    resources:
+      limits:
+        cpu: 50m
+        memory: 256Mi
+      requests:
+        cpu: 50m
+        memory: 128Mi
+
+
+configMap:
+    enabled: true
+    debug: true
+    dataPath: "/data"
+    fileStoragePath: "/data/storage"
+    resultFileStoragePath: "/data/result_storage"
+    pathFormatVersion: "v2"
+    threadPool: 4
+    prometheusScrapePort: 8109
+
+
+secrets:
+  enabled: true
+  sentryDSN: ""

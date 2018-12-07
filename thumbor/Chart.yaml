@@ -1,0 +1,16 @@
+apiVersion: v1
+appVersion: "1.0"
+description: >
+  A Helm chart to deploy Thumbor.
+name: thumbor
+icon: https://apsl.github.io/kubernetes-charts/images/thumbor.png
+version: 0.1.0
+mantainers:
+  - name: Tomeu Canyelles
+    email: bcanyelles@apsl.net
+  - name: Pau Rul.lan
+    email: prullan@apsl.net
+  - name: Edu Herraiz
+    email: eherraiz@apsl.net
+  - name: Marc Tudurí
+    email: mtuduri@apsl.net

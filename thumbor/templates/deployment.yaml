@@ -1,0 +1,187 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "thumbor.fullname" . }}
+  labels:
+    app: {{ include "thumbor.fullname" . }}
+    chart: {{ include "thumbor.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "thumbor.fullname" . }}
+      release: {{ .Release.Name }}
+      tier: {{ .Values.deployment.labels.tier }}
+{{- if .Values.strategy }}
+  strategy:
+    type: {{ .Values.strategy.type }}
+    {{- if eq ".Values.strategy.type" "RollingUpdate" }}
+    rollingUpdate:
+      maxSurge: {{ .Values.strategy.maxSurge }}
+      maxUnavailable: {{ .Values.strategy.maxUnavailable }}
+    {{- end }}
+{{- end }}
+  template:
+    metadata:
+      {{- if and .Values.deployment.metrics.enabled .Values.deployment.metrics.prometheus  }}
+      annotations:
+        prometheus.io/scrape: "true"
+      {{- end }}
+      labels:
+        app: {{ include "thumbor.fullname" . }}
+        release: {{ .Release.Name }}
+        tier: {{ .Values.deployment.labels.tier }}
+    spec:
+      containers:
+        - name: {{ include "thumbor.fullname" . }}
+          image: "{{ .Values.global.image.repository }}:{{ .Values.global.tag.uwsgi }}"
+          imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
+          {{- if .Values.deployment.probes.liveness.enabled }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.deployment.probes.liveness.httpPath }}
+              port: {{ .Values.deployment.thumbor.ports.containerPort }}
+            initialDelaySeconds: {{ .Values.deployment.probes.liveness.delay }}
+            timeoutSeconds: {{ .Values.deployment.probes.liveness.timeout }}
+            failureThreshold: {{ .Values.deployment.probes.liveness.threshold }}
+            periodSeconds: {{ .Values.deployment.probes.liveness.period }}
+            successThreshold: {{ .Values.deployment.probes.liveness.success }}
+          {{- end }}
+          {{- if .Values.deployment.probes.readiness.enabled }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.deployment.probes.readiness.httpPath }}
+              port: {{ .Values.deployment.thumbor.ports.containerPort }}
+            initialDelaySeconds: {{ .Values.deployment.probes.readiness.delay }}
+            timeoutSeconds: {{ .Values.deployment.probes.readiness.timeout }}
+            failureThreshold: {{ .Values.deployment.probes.readiness.threshold }}
+            periodSeconds: {{ .Values.deployment.probes.readiness.period }}
+            successThreshold: {{ .Values.deployment.probes.readiness.success }}
+          {{- end }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}
+            - secretRef:
+                name: {{ .Release.Name }}
+          ports:
+            - containerPort: {{ .Values.deployment.thumbor.ports.containerPort }}
+          volumeMounts:
+            - name: data-nginx
+              mountPath: "{{ .Values.configMap.resultFileStoragePath }}"
+              readOnly: False
+          resources:
+{{ toYaml .Values.deployment.resources | indent 12 }}
+
+# Nginx container
+# The default configuration create the nginx container, but you can disable it with
+# <deployment.nginx.enabled> value.
+        {{- if .Values.deployment.nginx.enabled }}
+        - name: {{ .Release.Name }}-nginx
+          image: "{{ .Values.global.image.repository }}:{{ .Values.global.tag.nginx }}"
+          imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.deployment.nginx.ports.containerPort }}
+          {{- if .Values.deployment.nginx.probes.liveness.enabled }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.deployment.nginx.probes.liveness.httpPath }}
+              port: {{ .Values.deployment.nginx.ports.containerPort }}
+            initialDelaySeconds: {{ .Values.deployment.nginx.probes.liveness.initialDelay }}
+            timeoutSeconds: {{ .Values.deployment.nginx.probes.liveness.timeout }}
+          {{- end }}
+          {{- if .Values.deployment.nginx.probes.readiness.enabled }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.deployment.nginx.probes.readiness.httpPath }}
+              port: {{ .Values.deployment.nginx.ports.containerPort }}
+            initialDelaySeconds: {{ .Values.deployment.nginx.probes.readiness.initialDelay }}
+            timeoutSeconds: {{ .Values.deployment.nginx.probes.readiness.timeout }}
+          {{- end }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}
+          {{- if .Values.deployment.storages.use_file_result_storage }}
+          volumeMounts:
+            - name: data-nginx
+              mountPath: /data
+              readOnly: True
+          {{- end }}
+          resources:
+{{ toYaml .Values.deployment.nginx.resources | indent 12 }}
+        {{- end }}
+
+# Metrics containers
+        {{- if .Values.deployment.metrics.enabled }}
+        # TODO Add thumbor exporter metrics
+        {{- if .Values.deployment.nginx.enabled }}
+        - name: {{ .Release.Name }}-nginx-exporter
+          image: fish/nginx-exporter
+          args:
+          - --nginx.scrape_uri=http://localhost/nginx/status
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 10m
+              memory: 10Mi
+            limits:
+              cpu: 100m
+              memory: 25M
+          ports:
+          - name: metrics
+            containerPort: 9113
+          livenessProbe:
+            httpGet:
+              path: /-/healthy
+              port: 9113
+        {{- end }}
+        {{- if not .Values.deployment.metrics.prometheus }}
+        - name: prometheus-to-sd
+          image: gcr.io/google-containers/prometheus-to-sd:v0.3.1
+          command:
+          - /monitor
+          - --source=:http://localhost:{{ .Values.configMap.prometheusScrapePort }} # thumbor
+          {{- if .Values.deployment.nginx.enabled }}
+          - --source=:http://localhost:9113/metrics # nginx
+          {{- end }}
+          - --stackdriver-prefix=custom.googleapis.com
+          - --pod-id=$(POD_ID)
+          - --namespace-id=$(POD_NAMESPACE)
+          env:
+          - name: POD_ID
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          resources:
+            requests:
+              cpu: 10m
+              memory: 20Mi
+            limits:
+              cpu: 100m
+              memory: 50Mi
+        {{- end }}
+        {{- end }}
+
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+
+      volumes:
+        - name: data-nginx
+          emptyDir: {}

@@ -1,0 +1,57 @@
+{{- if .Values.configMap.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ include "thumbor.fullname" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  {{- if .Values.configMap.debug }}
+  ALLOW_UNSAFE_URL: "True"
+  {{- end }}
+  ENGINE_THREADPOOL_SIZE: "{{ .Values.configMap.threadPool }}"
+
+  # Storage
+  {{- if .Values.deployment.storages.use_file_storage }}
+  STORAGE: "thumbor.storages.file_storage"
+  FILE_STORAGE_ROOT_PATH: "{{ .Values.configMap.fileStoragePath }}"
+  {{- else if .Values.deployment.storages.use_file_result_storage }}
+  STORAGE: "tc_redis.storages.redis_storage"
+  REDIS_STORAGE_IGNORE_ERRORS: "False"
+  {{- end }}
+
+  # Result storage
+  {{- if .Values.deployment.storages.use_file_result_storage }}
+  RESULT_STORAGE: "thumbor.storages.file_storage"
+  RESULT_STORAGE_FILE_STORAGE_ROOT_PATH: "{{ .Values.configMap.resultFileStoragePath }}"
+  {{- else if .Values.deployment.storages.use_redis_result_storage }}
+  RESULT_STORAGE: "tc_redis.storages.redis_storage"
+  REDIS_RESULT_STORAGE_IGNORE_ERRORS: "False"
+  {{- end }}
+
+  THUMBOR_HOST: "localhost"
+  THUMBOR_PORT: "{{ .Values.deployment.thumbor.ports.containerPort }}"
+  NGINX_PORT: "{{ .Values.deployment.nginx.ports.containerPort }}"
+  PATH_FORMAT_VERSION: "{{ .Values.configMap.pathFormatVersion }}"
+
+  {{- if .Values.deployment.metrics.enabled }}
+  METRICS: "tc_prometheus.metrics.prometheus_metrics"
+  PROMETHEUS_SCRAPE_PORT: "{{ .Values.configMap.prometheusScrapePort }}"
+  {{- end }}
+
+  # Configure other environment variables
+  {{- if .Values.global.dataConfigMap }}
+  {{- range $configmap := .Values.global.dataConfigMap }}
+  {{ $configmap.key }}: "{{ $configmap.value }}"
+  {{- end }}
+  {{- end }}
+
+
+{{- end }}
+server zafiro-thumbor:8000
+   sed -i -e "s/server zafiro-thumbor:8000;/server localhost:8000;/g"  /etc/nginx/nginx.conf
+;
