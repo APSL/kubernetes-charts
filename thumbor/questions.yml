@@ -1,0 +1,117 @@
+questions:
+
+  # Images
+  - variable: global.image.repository
+    label: Image repository
+    type: string
+    default: "apsl/thumbor"
+    group: Images
+  - variable: global.image.tag.uwsgi
+    label: Thumbor image tag
+    type: string
+    default: "base-6.6.0"
+    group: Images
+  - variable: global.image.tag.nginx
+    label: Nginx image tag
+    type: string
+    default: "nginx-6.6.0"
+    group: Images
+
+  # Probes
+  - variable: deployment.probes.liveness.enabled
+    label: Enable liveness probe
+    type: boolean
+    default: "true"
+    group: Probes
+  - variable: deployment.probes.liveness.enabled
+    label: Enable liveness probe
+    type: boolean
+    default: "true"
+    group: Probes
+
+  # Main settings
+  - variable: configMap.debug
+    label: Debug mode
+    description: This value allow unsafety urls
+    type: boolean
+    default: "false"
+    group: Main settings
+  - variable: configMap.threadPool
+    label: Number of threads
+    type: int
+    default: 4
+    group: Main settings
+  - variable: deployment.sentry.enabled
+    label: Main Sentry DSN
+    type: enum
+    default: "True"
+    options:
+    - "True"
+    - "False"
+    group: Main settings
+    show_subquestion_if: "True"
+    subquestions:
+    - variable: secrets.sentryDSN
+      label: Sentry DSN
+      type: string
+
+  # Main storage settings
+  - variable: redis.enabled
+    label: Enable redis
+    description: This value create a new redis pod
+    type: boolean
+    default: "false"
+    group: Storage settings
+  - variable: deployment.storages.use_file_storage
+    label: Use file as storage
+    type: boolean
+    default: "true"
+    group: Storage settings
+  - variable: deployment.storages.use_redis_storage
+    label: Use redis as storage
+    description: Remember define the environment variables to connect to the redis
+    type: boolean
+    default: "false"
+    group: Storage settings
+  - variable: deployment.storages.use_file_result_storage
+    label: Use file as result storage
+    type: boolean
+    default: "true"
+    group: Storage settings
+  - variable: deployment.storages.use_redis_result_storage
+    label: Use redis as result storage
+    description: Remember define the environment variables to connect to the redis
+    type: boolean
+    default: "false"
+    group: Storage settings
+  - variable: configMap.dataPath
+    label: Data path
+    description: Base tree path where find the data
+    type: string
+    default: "/data"
+    group: Storage settings
+  - variable: configMap.fileStoragePath
+    label: Storage path
+    type: string
+    default: "/data/storage"
+    show_if: "deployment.storages.use_file_storage=true"
+    group: Storage settings
+  - variable: configMap.resultFileStoragePath
+    label: Result storage path
+    type: string
+    default: "/data/result_storage"
+    show_if: "deployment.storages.use_file_result_storage=true"
+    group: Storage settings
+
+  # Metrics
+  - variable: deployment.metrics.enabled
+    label: Enable metrics
+    type: boolean
+    default: "true"
+    group: Metrics
+  - variable: deployment.metrics.prometheus
+    label: Enable Prometheus
+    description: Instanciate Prometheus instead of use exporters
+    type: boolean
+    default: "false"
+    group: Metrics

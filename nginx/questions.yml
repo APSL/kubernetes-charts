@@ -1,0 +1,39 @@
+questions:
+  - variable: global.image.nginx
+    label: Nginx image
+    type: string
+  - variable: global.image.tag
+    label: Image tag
+    description: The tag for nginx images
+    type: string
+    default: "latest"
+  - variable: deployment.metrics.enabled
+    label: Enable metrics
+    type: boolean
+    default: "false"
+  - variable: configMap.enableBasicAuth
+    description: Use demo/demo to login
+    label: Use Basic auth
+    type: enum
+    options:
+    - "True"
+    - "False"
+    default: "False"
+  - variable: configMap.enable3wRedirect
+    label: Enable www redirect
+    type: enum
+    options:
+    - "True"
+    - "False"
+    default: "False"
+  - variable: configMap.enableHttpsRedirect
+    label: Enable https redirect
+    type: enum
+    options:
+    - "True"
+    - "False"
+    default: "False"
+  - variable: service.internalPort
+    label: Service internal port
+    type: int
+    default: 80
