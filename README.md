@@ -1,3 +1,13 @@
+# Overview
+
+Use this repository to submit Charts for Helm. All of them are used into
+APSL organitzation to deploy our Django applications over GKE.
+
+
+<img src="./images/django-nginx-uwsgi.png" width="20%" height="20%"> <img src="./images/django-uwsgi.png" width="20%" height="20%"> <img src="./images/nginx-uwsgi.png" width="20%" height="20%"> <img src="./images/nginx.png" width="20%" height="20%">
+<img src="./images/thumbor.png" width="20%" height="20%"> <img src="./images/uwsgi.png" width="20%" height="20%"> <img src="./images/varnish.png" width="20%" height="20%">
+
+
 # Dependencies
 
 
@@ -69,6 +79,7 @@ kubernetes-charts/
 |        └── _helpers.tpl               # Difinition of template variables.
 |                                       # Note that not require templates because this chart only encapsulate
 |                                       # dependencies.
+...
 └── uwsgi/                              # Contains the configuration for a uwsgi deployment.
      ├── charts/                        # Folder that contains built packages for the dependecies of this chart.
      |                                  # IMPORTANT: No commit packages into, will be auto-generated.
@@ -86,11 +97,6 @@ kubernetes-charts/
 
 Take a look to [The Chart File Structure](https://github.com/kubernetes/helm/blob/master/docs/charts.md) to get
 acquainted to chart structure.
-
-The `django-nginx-uwsgi` chart is a generic Helm chart for deploy a
-`Django` application with a simple architecture:
-
-![Architecture](./images/simple-django-app-architecture.png "Simple architecture for a Django application")
 
 
 # How to
