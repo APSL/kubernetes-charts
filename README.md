@@ -122,11 +122,11 @@ helm install PACKAGE --version VERSION --namespace NAMESPACE --name RELEASE_NAME
 * *PACKAGE* &rarr; The path to stored package.
 * *VERSION* &rarr; The exact version of the package to install.
 If it is not set the last version will be deployed.
-* *--namespace NAMESPACE* &rarr; The namespace that will be create on
+* *NAMESPACE* &rarr; The namespace that will be create on
  _Google Cloud Platform_ and will be user with in the deployment.
-* *--name RELEASE_NAME* &rarr; It must has a different value to
+* *RELEASE_NAME* &rarr; It must has a different value to
 _namespace_. It is used in the deployment and dependencies deployments.
-* *-f VALUES* &rarr; Path to the file where are all values that
+* *VALUES* &rarr; Path to the file where are all values that
 overrides the Helm chart, for example `SECRET_KEY` or
 `DATABASE_PASSWORD`, etc.
 
@@ -152,10 +152,9 @@ helm plugin install https://github.com/technosophos/helm-template
 helm template -n NAMESPACE -r RELEASE_NAME -f VALUES --notes CHART > output.yaml
 ```
 
-* *-n NAMESPACE* &rarr; The namespace used with in deployment.
-* *-r RELEASE_NAME* &rarr; The release name used with in deployment.
-* *-f VALUES* &rarr; Override specific values for application.
-* *--notes* &rarr; Render the _NOTES.txt_ file chart's dependencies notes.
+* *NAMESPACE* &rarr; The namespace used with in deployment.
+* *RELEASE_NAME* &rarr; The release name used with in deployment.
+* *VALUES* &rarr; Override specific values for application.
 * *CHART* &rarr; Location path to the chart.
 
 ```bash
@@ -291,42 +290,30 @@ We will generate a new chart **_packagedemo__**:
 ```bash
 helm create packagedemo
 ```
-
 1. Serve built local packages:
-
 ```bash
 cd packages
 helm serve
 ```
-
 2. Build all dependent packages:
-
 ```bash
 helm package -u -d packages uwsgi
 helm package -u -d packages nginx
 helm package -u -d packages packagedemo
 ```
-
 or use the Makefile commands:
-
 ```bash
 make helm-packages
 ```
-
 3. Generate index
-
 ```bash
 helm repo index packages
 ```
-
 or use the Makefile commands:
-
 ```bash
 make helm-index
 ```
-
 4. Test to show resultant _yaml_ for deployment:
-
 ```bash
 helm template packages/packagedemo-0.0.1.tgz -n demo -r r-demo -f your_demo_app_values.yaml --notes . > ~/k8s-deployment.yaml
 ```
