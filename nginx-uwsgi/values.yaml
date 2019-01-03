@@ -117,7 +117,7 @@ configMap:
     databaseHost: "127.0.0.1"
     databasePort: "5432"
     databaseName: ""
-    databaseUser: apsl
+    databaseUser: ""
     enableSentry: "True"
     compressEnabled: "True"
     compressOffline: "True"

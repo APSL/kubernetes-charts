@@ -190,15 +190,4 @@ questions:
     default: "false"
     show_if: "celery.enabled=true"
     group: Celery settings
-#  - variable: crons.crons.args
-#    label: Crons command
-#    type: storageclass
-#    default: ["run-crons"]
-#    group: Service settings
-#    show_if: "crons.enabled=true"
-#  - variable: rq.djangoRQ.args
-#    label: RQ command
-#    type: storageclass
-#    default: ["run-django-rq"]
-#    group: Service settings
-#    show_if: "rq.enabled=true"
+
