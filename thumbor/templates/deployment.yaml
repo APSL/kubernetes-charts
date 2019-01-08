@@ -37,7 +37,7 @@ spec:
     spec:
       containers:
         - name: {{ include "thumbor.fullname" . }}
-          image: "{{ .Values.global.image.repository }}:{{ .Values.global.tag.uwsgi }}"
+          image: "{{ .Values.global.image.repository }}:{{ .Values.global.image.tag.thumbor }}"
           imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
           {{- if .Values.deployment.probes.liveness.enabled }}
           livenessProbe:
@@ -80,7 +80,7 @@ spec:
 # <deployment.nginx.enabled> value.
         {{- if .Values.deployment.nginx.enabled }}
         - name: {{ .Release.Name }}-nginx
-          image: "{{ .Values.global.image.repository }}:{{ .Values.global.tag.nginx }}"
+          image: "{{ .Values.global.image.repository }}:{{ .Values.global.image.tag.nginx }}"
           imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.deployment.nginx.ports.containerPort }}

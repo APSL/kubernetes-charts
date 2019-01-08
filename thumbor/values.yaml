@@ -5,7 +5,7 @@ global:
   image:
     repository: ""
   tag:
-    uwsgi: ""
+    thumbor: ""
     nginx: ""
   dataSecrets:
   dataConfigMap:

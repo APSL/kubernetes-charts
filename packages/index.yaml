@@ -362,10 +362,10 @@ entries:
   thumbor:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2019-01-05T20:07:30.675177271+01:00
+    created: 2019-01-08T12:11:15.981025844+01:00
     description: |
       A Helm chart to deploy Thumbor.
-    digest: 2e1ff55bb7135ef108ce0c4e78e575a9b13331bc98345feca2b753046f2029f0
+    digest: 5a01265054a3383b7fd6f54c218c096fc2bf5c52e8cabfde6330868fe4ac96e2
     icon: https://apsl.github.io/kubernetes-charts/images/thumbor.png
     name: thumbor
     urls:

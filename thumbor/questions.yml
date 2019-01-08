@@ -6,7 +6,7 @@ questions:
     type: string
     default: "apsl/thumbor"
     group: Images
-  - variable: global.image.tag.uwsgi
+  - variable: global.image.tag.thumbor
     label: Thumbor image tag
     type: string
     default: "base-6.6.0"
