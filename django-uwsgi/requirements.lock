@@ -21,4 +21,4 @@ dependencies:
   repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
   version: 0.3.0
 digest: sha256:13e904d6aae9ef63a6a52593ddef172ab3fc2b078e81f26276a2ca84602739a5
-generated: 2019-01-03T17:13:24.93286205+01:00
+generated: 2019-07-25T15:52:56.47776068+02:00

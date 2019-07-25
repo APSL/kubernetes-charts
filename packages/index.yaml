@@ -2,7 +2,20 @@ apiVersion: v1
 entries:
   django-celery:
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.641745777+01:00
+    created: 2019-07-25T15:53:09.973864206+02:00
+    description: |
+      A Chart to deploy a Celery using Django configuration.
+    digest: 946e4fadb8265194fd10bbba3a5f41c195e926afc79847ad0e77b0a100f7b54a
+    icon: https://apsl.github.io/kubernetes-charts/images/django-celery.png
+    keywords:
+    - template
+    - celery
+    name: django-celery
+    urls:
+    - django-celery-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v1
+    created: 2019-07-25T15:53:09.973501808+02:00
     description: |
       A Chart to deploy a Celery using Django configuration.
     digest: 6fe830a3098fdfefc7a40a1b36c0204a49ab112f39007bd840d370a8d59efb08
@@ -15,7 +28,24 @@ entries:
     version: 0.1.0
   django-nginx-uwsgi:
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.656177537+01:00
+    created: 2019-07-25T15:53:09.993327969+02:00
+    description: |
+      A Chart for a simple architecture of an app deploying over K8s using nginx and uwsgi in the same pod. So, it depends of 'nginx-uwsgi' packages for the app, 'uwsgi' for crons, rq or cellery and 'redis' package.
+    digest: 45fc5026fd770bcfd346527cf06be998deb02765acdfccaa77223784bcad43a9
+    icon: https://apsl.github.io/kubernetes-charts/images/django-nginx-uwsgi.png
+    keywords:
+    - django
+    - nginx
+    - uwsgi
+    - crons
+    - rq
+    - celery
+    name: django-nginx-uwsgi
+    urls:
+    - django-nginx-uwsgi-0.4.2.tgz
+    version: 0.4.2
+  - apiVersion: v1
+    created: 2019-07-25T15:53:09.98470104+02:00
     description: |
       A Chart for a simple architecture of an app deploying over K8s using nginx and uwsgi in the same pod. So, it depends of 'nginx-uwsgi' packages for the app, 'uwsgi' for crons, rq or cellery and 'redis' package.
     digest: 7a89b118b15c17cfdfeb4f73fdf26d9b05b471204508c50ca2f0211b6d82c9fb
@@ -32,7 +62,7 @@ entries:
     - django-nginx-uwsgi-0.4.1.tgz
     version: 0.4.1
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.653681284+01:00
+    created: 2019-07-25T15:53:09.98262373+02:00
     description: |
       A Chart for a simple architecture of an app deploying over K8s using nginx and uwsgi in the same pod. So, it depends of 'nginx-uwsgi' packages for the app, 'uwsgi' for crons, rq or cellery and 'redis' package.
     digest: 6e9cde9c203256e3fb72f239499ca800e4f27edb8c36e6781d32556f2c39bf90
@@ -49,7 +79,7 @@ entries:
     - django-nginx-uwsgi-0.4.0.tgz
     version: 0.4.0
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.65132281+01:00
+    created: 2019-07-25T15:53:09.98081061+02:00
     description: |
       A Chart for a simple architecture of an app deploying over K8s using nginx and uwsgi in the same pod. So, it depends of 'nginx-uwsgi' packages for the app, 'uwsgi' for crons, rq or cellery and 'redis' package.
     digest: 3f2d8916b7ce01277c8b321c8fd29f618495ccfd3c7696383be4b834b8554c37
@@ -66,7 +96,7 @@ entries:
     - django-nginx-uwsgi-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.64915034+01:00
+    created: 2019-07-25T15:53:09.979152543+02:00
     description: |
       A Chart for a simple architecture of an app deploying over K8s using nginx and uwsgi in the same pod. So, it depends of 'nginx-uwsgi' packages for the app, 'uwsgi' for crons, rq or cellery and 'redis' package.
     digest: 6f07d81ee24623a65508d8bf256e3929f6e94dcc8f12438c8bb615ebbe9984f5
@@ -82,7 +112,7 @@ entries:
     - django-nginx-uwsgi-0.2.1.tgz
     version: 0.2.1
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.647510721+01:00
+    created: 2019-07-25T15:53:09.977900209+02:00
     description: |
       A Chart for a simple architecture of an app deploying over K8s using nginx and uwsgi in the same pod. So, it depends of 'nginx-uwsgi' packages for the app, 'uwsgi' for crons, rq or cellery and 'redis' package.
     digest: e08a12d3b24429b9de69369eb9d7c88d82da29bbc74e20f6f94928755d85bc57
@@ -98,7 +128,7 @@ entries:
     - django-nginx-uwsgi-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.645770781+01:00
+    created: 2019-07-25T15:53:09.976616482+02:00
     description: |
       A Chart for a simple architecture of an app deploying over K8s using nginx and uwsgi in the same pod. So, it depends of 'nginx-uwsgi' packages for the app, 'uwsgi' for crons, rq or cellery and 'redis' package.
     digest: a5a4dfa31f87eab7e98591a88caac767e441d877294474471d007f0e39591105
@@ -114,7 +144,7 @@ entries:
     - django-nginx-uwsgi-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.6439138+01:00
+    created: 2019-07-25T15:53:09.97536451+02:00
     description: A Helm chart for a simple architecture of an app deploying over Kubernetes
       using nginx and uwsgi in the same pod
     digest: 36fbdf0b459024092cabbcb3c600e7273a2e1284c96235d3efa5c32f6c932e3c
@@ -128,10 +158,10 @@ entries:
     version: 0.1.0
   django-uwsgi:
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.66985161+01:00
+    created: 2019-07-25T15:53:10.015425144+02:00
     description: |
       This Chart is to deploy a simple architecture of a Django application over K8s using only uwsgi container. This means that it will use a 'uwsgi' package for the app and other 'uwsgi' for crons, rq or cellery.
-    digest: 257fe411e0135fed2cd837bbf9c0d274022c629cdef0b03690a88f904a78f015
+    digest: 69238e5a186ae8c75d4e7ca99c0abd2393f2d71ed39aa919d8f26aa44a9fda08
     icon: https://apsl.github.io/kubernetes-charts/images/django-uwsgi.png
     keywords:
     - django
@@ -144,7 +174,7 @@ entries:
     - django-uwsgi-0.4.1.tgz
     version: 0.4.1
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.667701776+01:00
+    created: 2019-07-25T15:53:10.007592908+02:00
     description: |
       This Chart is to deploy a simple architecture of a Django application over K8s using only uwsgi container. This means that it will use a 'uwsgi' package for the app and other 'uwsgi' for crons, rq or cellery.
     digest: ac5c154ceff382e9718152a4ad205448265996f44a70a0999cf0c761afde4d74
@@ -160,7 +190,7 @@ entries:
     - django-uwsgi-0.4.0.tgz
     version: 0.4.0
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.665568574+01:00
+    created: 2019-07-25T15:53:10.003227888+02:00
     description: |
       This Chart is to deploy a simple architecture of a Django application over K8s using only uwsgi container. This means that it will use a 'uwsgi' package for the app and other 'uwsgi' for crons, rq or cellery.
     digest: 71c4cf58ba9cb7be97cc7ee0ee020fdb4290f926b82c87f664622707c49afef4
@@ -176,7 +206,7 @@ entries:
     - django-uwsgi-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.663916776+01:00
+    created: 2019-07-25T15:53:10.001011334+02:00
     description: |
       This Chart is to deploy a simple architecture of a Django application over K8s using only uwsgi container. This means that it will use a 'uwsgi' package for the app and other 'uwsgi' for crons, rq or cellery.
     digest: 17596299624d6f0de79533089d02a5a5aead99d885e317b2a1dc28eda56d0573
@@ -191,7 +221,7 @@ entries:
     - django-uwsgi-0.2.1.tgz
     version: 0.2.1
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.662484345+01:00
+    created: 2019-07-25T15:53:09.999109899+02:00
     description: |
       This Chart is to deploy a simple architecture of a Django application over K8s using only uwsgi container. This means that it will use a 'uwsgi' package for the app and other 'uwsgi' for crons, rq or cellery.
     digest: f1541925c3eae08768dd329b6c24db15000afd43d8041c1aacc7d5320add8e71
@@ -206,7 +236,7 @@ entries:
     - django-uwsgi-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.660420111+01:00
+    created: 2019-07-25T15:53:09.997559353+02:00
     description: |
       This Chart is to deploy a simple architecture of a Django application over K8s using only uwsgi container. This means that it will use a 'uwsgi' package for the app and other 'uwsgi' for crons, rq or cellery.
     digest: a1807b8eca30df4a5ee68e32a8bfae633e38f4706b00c950e28ef8b8048a13ed
@@ -221,7 +251,7 @@ entries:
     - django-uwsgi-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.657663763+01:00
+    created: 2019-07-25T15:53:09.996068572+02:00
     description: A Helm chart for a simple architecture of an app deploying over Kubernetes
       using uwsgi
     digest: d0dd7be8e9ff1f0558c84ac31e0402313d5b6507cd6c5ebb7540c6425547b3d3
@@ -235,10 +265,10 @@ entries:
     version: 0.1.0
   nginx:
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.670775845+01:00
+    created: 2019-07-25T15:53:10.016589221+02:00
     description: |
       A Chart to deploy over K8s an applications that can be served by nginx.
-    digest: 9aa6aeba1934a7bf822bc19bdbbf33876b0562a4a52270eb8a1b8a99dfdcd6dc
+    digest: ba6f0f40df7c5fe47dad8fc86974069b169d3065a9651ad93cabbfd3322fb7ae
     icon: https://apsl.github.io/kubernetes-charts/images/nginx.png
     keywords:
     - template
@@ -248,7 +278,7 @@ entries:
     - nginx-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.670302473+01:00
+    created: 2019-07-25T15:53:10.01599991+02:00
     description: |
       A Chart to deploy over K8s an applications that can be served by nginx.
     digest: 7ed6b28d6c59298c3006eedf2577b2403b6cb644ca60b4f80c5d6527d2b7f6fa
@@ -262,7 +292,21 @@ entries:
     version: 0.1.0
   nginx-uwsgi:
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.674624475+01:00
+    created: 2019-07-25T15:53:10.021443561+02:00
+    description: |
+      This Chart is for applications served using uwsgi and nginx server. So, it will deploy over K8s a pod with a uwsgi and a nginx container.
+    digest: fe3de92e56aff93abd3801ff7b52133fd72bb0c711fcefaad95699c90d3ef2fd
+    icon: https://apsl.github.io/kubernetes-charts/images/nginx-uwsgi.png
+    keywords:
+    - template
+    - nginx
+    - uwsgi
+    name: nginx-uwsgi
+    urls:
+    - nginx-uwsgi-0.4.2.tgz
+    version: 0.4.2
+  - apiVersion: v1
+    created: 2019-07-25T15:53:10.020707415+02:00
     description: |
       This Chart is for applications served using uwsgi and nginx server. So, it will deploy over K8s a pod with a uwsgi and a nginx container.
     digest: ff53c8e23ef49c68b4853b1a163e57d15c4f29e1e3e6a4b9d4fe57bd48c4fa64
@@ -276,7 +320,7 @@ entries:
     - nginx-uwsgi-0.4.1.tgz
     version: 0.4.1
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.674029344+01:00
+    created: 2019-07-25T15:53:10.019946951+02:00
     description: |
       This Chart is for applications served using uwsgi and nginx server. So, it will deploy over K8s a pod with a uwsgi and a nginx container.
     digest: 648f6f1e6f41ddc4299a95b44381da48a5bb7c2eb45da1b02f78e709de1401eb
@@ -290,7 +334,7 @@ entries:
     - nginx-uwsgi-0.4.0.tgz
     version: 0.4.0
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.673430558+01:00
+    created: 2019-07-25T15:53:10.019249769+02:00
     description: |
       This Chart is for applications served using uwsgi and nginx server. So, it will deploy over K8s a pod with a uwsgi and a nginx container.
     digest: b0cf6dbe32ed28fb8583daa88c52cc3e05c17043f2adb7cd57dc452c1aad8ac6
@@ -304,7 +348,7 @@ entries:
     - nginx-uwsgi-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.672812533+01:00
+    created: 2019-07-25T15:53:10.018611352+02:00
     description: |
       This Chart is for applications served using uwsgi and nginx server. So, it will deploy over K8s a pod with a uwsgi and a nginx container.
     digest: a769bebae9ff7d4a3ecc8eb8ee04edfab65edd486247c6fd2f7d51a349ef96a7
@@ -318,7 +362,7 @@ entries:
     - nginx-uwsgi-0.2.1.tgz
     version: 0.2.1
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.67230569+01:00
+    created: 2019-07-25T15:53:10.018245702+02:00
     description: |
       This Chart is for applications served using uwsgi and nginx server. So, it will deploy over K8s a pod with a uwsgi and a nginx container.
     digest: fa4a74e593ec32c2fa873e16d31281aa8f37003bb802b73de171213c9bd4e56d
@@ -332,7 +376,7 @@ entries:
     - nginx-uwsgi-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.671792968+01:00
+    created: 2019-07-25T15:53:10.017702933+02:00
     description: |
       This Chart is for applications served using uwsgi and nginx server. So, it will deploy over K8s a pod with a uwsgi and a nginx container.
     digest: 4eed198fd54b95243cbfa58d6b57d57aaf0c1aa9a835cbcb0538d03106250fbe
@@ -346,7 +390,7 @@ entries:
     - nginx-uwsgi-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.671284026+01:00
+    created: 2019-07-25T15:53:10.017158844+02:00
     description: A Helm chart for a simple architecture of an app deploying over Kubernetes
       using nginx and uwsgi in the same pod.
     digest: 308a405e5d6c25c45cadeec0d2c6cf0b0e9b3a4a502e48299dd41daf257a997b
@@ -362,10 +406,10 @@ entries:
   thumbor:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2019-01-08T12:11:15.981025844+01:00
+    created: 2019-07-25T15:53:10.022125215+02:00
     description: |
       A Helm chart to deploy Thumbor.
-    digest: 5a01265054a3383b7fd6f54c218c096fc2bf5c52e8cabfde6330868fe4ac96e2
+    digest: 6e5690aef0689574b31caf889e1237ae48aba6ff387b094c9b0e4120a089aa48
     icon: https://apsl.github.io/kubernetes-charts/images/thumbor.png
     name: thumbor
     urls:
@@ -373,7 +417,20 @@ entries:
     version: 0.1.0
   uwsgi:
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.678962063+01:00
+    created: 2019-07-25T15:53:10.0279326+02:00
+    description: |
+      A Chart to deploy a single uwsgi container in the pod that serve the application.
+    digest: abef19994b727a59a1ce309b29549052df093ad138dc813958478d5da63549e7
+    icon: https://apsl.github.io/kubernetes-charts/images/uwsgi.png
+    keywords:
+    - template
+    - uwsgi
+    name: uwsgi
+    urls:
+    - uwsgi-0.4.2.tgz
+    version: 0.4.2
+  - apiVersion: v1
+    created: 2019-07-25T15:53:10.02751711+02:00
     description: |
       A Chart to deploy a single uwsgi container in the pod that serve the application.
     digest: 427dae859a16aaad3feeef94d1096fd649f648bdd515d7af837110fbdc625ee6
@@ -386,7 +443,7 @@ entries:
     - uwsgi-0.4.1.tgz
     version: 0.4.1
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.678324667+01:00
+    created: 2019-07-25T15:53:10.027101955+02:00
     description: |
       A Chart to deploy a single uwsgi container in the pod that serve the application.
     digest: 5d83f94554574839ee6ac211afae3d71105ffb314a25ea5c709c502cf45d0ad0
@@ -399,7 +456,7 @@ entries:
     - uwsgi-0.4.0.tgz
     version: 0.4.0
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.677713842+01:00
+    created: 2019-07-25T15:53:10.026674538+02:00
     description: |
       A Chart to deploy a single uwsgi container in the pod that serve the application.
     digest: 598adaa21f3af2e4924be52bd7ec074e60c5b718c441c2691a1558b42e60764a
@@ -412,7 +469,7 @@ entries:
     - uwsgi-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.677147393+01:00
+    created: 2019-07-25T15:53:10.023897006+02:00
     description: |
       A Chart to deploy a single uwsgi container in the pod that serve the application.
     digest: d981fff55a6abba4c89d294b95d6d832313c819d266c787557869887b09ae87c
@@ -425,7 +482,7 @@ entries:
     - uwsgi-0.2.1.tgz
     version: 0.2.1
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.676649005+01:00
+    created: 2019-07-25T15:53:10.023519751+02:00
     description: |
       A Chart to deploy a single uwsgi container in the pod that serve the application.
     digest: 6800d639e028ef73993d9607318ddd847ef32968378f371ad23e975b88dbba9b
@@ -438,7 +495,7 @@ entries:
     - uwsgi-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.676154585+01:00
+    created: 2019-07-25T15:53:10.023148977+02:00
     description: |
       A Chart to deploy a single uwsgi container in the pod that serve the application.
     digest: c4d46e42f4e15b696fec69d9ca34f38acc8a42febad023a0fbe561b36ffb62b5
@@ -451,7 +508,7 @@ entries:
     - uwsgi-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.675669841+01:00
+    created: 2019-07-25T15:53:10.022746489+02:00
     description: A Helm chart for a simple architecture of an app deploying over Kubernetes
       using uwsgi
     digest: 984dc74a731883d2147361df48c059e5cfc47e168c4d94b42309946c45c3b6e7
@@ -465,9 +522,9 @@ entries:
     version: 0.1.0
   varnish:
   - apiVersion: v1
-    created: 2019-01-05T20:07:30.67934819+01:00
+    created: 2019-07-25T15:53:10.028210314+02:00
     description: A Chart for a varnish deployment.
-    digest: cb703647594a16f88e44788106091042d9beafb0a70ab8c54098a3aa0a823cb6
+    digest: 538ab99de6f5f07f7348ca3749bf73d76a5ecb211df0c2aea368e75525c2e9a0
     icon: https://apsl.github.io/kubernetes-charts/images/varnish.png
     keywords:
     - template
@@ -476,4 +533,4 @@ entries:
     urls:
     - varnish-0.1.0.tgz
     version: 0.1.0
-generated: 2019-01-05T20:07:30.64107804+01:00
+generated: 2019-07-25T15:53:09.973068313+02:00

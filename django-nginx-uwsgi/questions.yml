@@ -110,41 +110,39 @@ questions:
     default: "False"
     group: Main settings
 
-  # Services
+  # Migrations
   - variable: migrations.enabled
-    description: This value allow sync your database with migrations
-    label: Use migrations environment
+    label: Use pod for migrations
+    description: "Is recommended choose only one option: pods or cronjob as migration executor"
+    type: boolean
+    default: "false"
+    group: Migrations
+  - variable: cronjob.enabled
+    label: Use cron-job for migrations
     type: boolean
     default: "true"
-    group: Services
-  - variable: varnish.enabled
-    label: Use Varnish
-    type: boolean
-    default: "false"
-    group: Services
-  - variable: crons.enabled
-    label: Use Crons
-    type: boolean
-    default: "false"
-    group: Services
-  - variable: celery.enabled
-    label: Use Celery
-    type: boolean
-    default: "false"
-    group: Services
-  - variable: rq.enabled
-    label: Use RQ
-    type: boolean
-    default: "false"
-    group: Services
+    group: Migrations
+  - variable: migrations.deployment.probes.readiness.timeout
+    label: Timeout for readiness probe request
+    type: int
+    default: 5
+    show_if: "migrations.enabled=true"
+    group: Migrations
+  - variable: migrations.deployment.probes.readiness.period
+    label: Time between readiness probe request
+    type: int
+    default: 30
+    show_if: "migrations.enabled=true"
+    group: Migrations
+
+
+  # Redis
   - variable: redis.enabled
     description: This value create a new redis pod
     label: Use unhosted redis
     type: boolean
     default: "false"
-    group: Services
-
-  # Redis
+    group: Redis
   - variable: app.deployment.redis.host
     label: Redis host
     type: string
@@ -163,19 +161,28 @@ questions:
     show_if: "redis.enabled=false"
     group: Redis
 
-    # Migrations settings
-  - variable: migrations.deployment.probes.readiness.timeout
-    label: Timeout for readiness probe request
-    type: int
-    default: 5
-    show_if: "migrations.enabled=true"
-    group: Migrations settings
-  - variable: migrations.deployment.probes.readiness.period
-    label: Time between readiness probe request
-    type: int
-    default: 30
-    show_if: "migrations.enabled=true"
-    group: Migrations settings
+  # Extra components
+  - variable: varnish.enabled
+    label: Use Varnish
+    type: boolean
+    default: "false"
+    group: Extra Components
+  - variable: crons.enabled
+    label: Use Crons
+    type: boolean
+    default: "false"
+    group: Extra Components
+  - variable: celery.enabled
+    label: Use Celery
+    type: boolean
+    default: "false"
+    group: Extra Components
+  - variable: rq.enabled
+    label: Use RQ
+    type: boolean
+    default: "false"
+    group: Extra Components
+
 
   # Celery settings
   - variable: global.celery.brokerUrl

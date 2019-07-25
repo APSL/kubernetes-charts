@@ -1,6 +1,7 @@
 apiVersion: v1
 name: django-celery
-version: 0.1.0
+icon: https://apsl.github.io/kubernetes-charts/images/django-celery.png
+version: 0.1.1
 keywords:
   - template
   - celery
