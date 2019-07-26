@@ -24,12 +24,31 @@ global:
     tag: ""
   dataSecrets:
   dataConfigMap:
-
-
-nginx-uwsgi:
+  cloudSql:
+    host: ""
   secrets:
     passwordDB: ""
     sentryDSN: ""
+  configMap:
+    databaseHost: "127.0.0.1"
+    databasePort: "5432"
+  databaseController:
+    secret:
+      shared: false
+
+
+cronjob:
+  enabled: true
+  suspend: true
+  schedule: "0 6 * * 1-5"
+  migrations:
+    enabled: true
+
+
+app:
+  deployment:
+    pgBouncer:
+      enabled: true
 
 
 crons:
@@ -46,7 +65,7 @@ crons:
 
 
 migrations:
-  enabled: true
+  enabled: false
   migrations:
     enabled: true
   <<: *commons

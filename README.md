@@ -99,6 +99,15 @@ Take a look to [The Chart File Structure](https://github.com/kubernetes/helm/blo
 acquainted to chart structure.
 
 
+## Charts information
+
+- The [django-nginx-uwsgi](django-nginx-uwsgi/README.md) Chart.
+- The [django-celery](django-celery/README.md) Chart.
+- The [nginx](nginx/README.md) Chart.
+- The [varnish](varnish/README.md) Chart.
+- The [thumbor](thumbor/README.md) Chart.
+
+
 # How to
 
 This section will try to explain you how to use this repository to
@@ -178,7 +187,7 @@ global:
       value: "10.0.0.1"
     - name: DEFAULT_FROM_EMAIL
       key: django.emailDefaultFromEmail
-      value: Hotel Morito <bookmorito@hotelmorito.es>
+      value: Demo <info@demo.org>
     - name: AWS_STORAGE_BUCKET_NAME
       value: my-app-prod
     - name: AWS_ACCESS_KEY_ID

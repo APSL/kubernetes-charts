@@ -16,11 +16,11 @@ data:
   ALLOWED_HOSTS: "{{ .Values.configMap.allowedHosts }}"
 
   {{- if .Values.deployment.pgBouncer.enabled }}
-  DATABASE_HOST: "{{ .Values.configMap.databaseHost }}"
+  DATABASE_HOST: "{{ .Values.global.configMap.databaseHost }}"
   DATABASE_PORT: "{{ .Values.deployment.pgBouncer.port }}"
   {{- else -}}
-  DATABASE_HOST: "{{ .Values.deployment.cloudSql.host }}"
-  DATABASE_PORT: "{{ .Values.configMap.databasePort }}"
+  DATABASE_HOST: "{{ .Values.global.cloudSql.host }}"
+  DATABASE_PORT: "{{ .Values.global.configMap.databasePort }}"
   {{- end }}
   {{- if not .Values.global.databaseController.enabled }}
   DATABASE_NAME: "{{ .Values.configMap.databaseName }}"

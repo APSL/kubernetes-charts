@@ -13,6 +13,12 @@ global:
   dataConfigMap:
   cloudSql:
     host: ""
+  secrets:
+    passwordDB: ""
+    sentryDSN: ""
+  configMap:
+    databaseHost: "127.0.0.1"
+    databasePort: "5432"
   celery:
     brokerUrl: ""
   databaseController:
@@ -114,8 +120,6 @@ configMap:
     enableBasicAuth: "True"
     enable3wRedirect: "True"
     enableHttpsRedirect: "True"
-    databaseHost: "127.0.0.1"
-    databasePort: "5432"
     databaseName: ""
     databaseUser: ""
     enableSentry: "True"
@@ -127,8 +131,6 @@ configMap:
 secrets:
   enabled: true
   type: Opaque
-  sentryDSN: ""
-  passwordDB: ""
 
 
 crons:

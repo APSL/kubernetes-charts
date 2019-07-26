@@ -79,17 +79,17 @@ spec:
             - name: DATABASE_NAME
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.global.databaseController.secret.name }}
+                  name: {{ .Values.global.databaseController.secret.name }}-{{ .Release.Name }}
                   key: database-name
             - name: DATABASE_USER
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.global.databaseController.secret.name }}
+                  name: {{ .Values.global.databaseController.secret.name }}-{{ .Release.Name }}
                   key: database-user
             - name: DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.global.databaseController.secret.name }}
+                  name: {{ .Values.global.databaseController.secret.name }}-{{ .Release.Name }}
                   key: database-password
           {{- end }}
           resources:
@@ -109,12 +109,12 @@ spec:
           - name: DB_USER
             valueFrom:
               secretKeyRef:
-                name: {{ .Values.global.databaseController.secret.name }}
+                name: {{ .Values.global.databaseController.secret.name }}-{{ .Release.Name }}
                 key: database-user
           - name: DB_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: {{ .Values.global.databaseController.secret.name }}
+                name: {{ .Values.global.databaseController.secret.name }}-{{ .Release.Name }}
                 key: database-password
           {{- else }}
           - name: DB_USER
