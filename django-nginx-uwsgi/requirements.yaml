@@ -5,13 +5,13 @@ dependencies:
     alias: app
 
   - name: uwsgi
-    version: 0.4.2
+    version: 0.4.1
     repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
     alias: crons
     condition: crons.enabled
 
   - name: uwsgi
-    version: 0.4.2
+    version: 0.4.1
     repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
     alias: rq
     condition: rq.enabled
@@ -39,7 +39,7 @@ dependencies:
     condition: redis.enabled
 
   - name: uwsgi
-    version: 0.4.2
+    version: 0.4.1
     repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
     alias: migrations
     condition: migrations.enabled

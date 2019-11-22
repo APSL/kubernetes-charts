@@ -31,3 +31,9 @@ questions:
     type: string
     default: "redis://10.0.0.3:6379/1"
     group: Celery settings
+
+  - variable: deployment.probes.liveness.args
+    label: Liveness probe for celery
+    type: string
+    default: "launch-celery-liveness-probe"
+    group: Celery settings

@@ -54,12 +54,23 @@ migrations:
 
 celery:
   enabled: false
-  secrets:
-    enabled: false
-  service:
-    enabled: false
+  <<: *commons
   configMap:
     enabled: true
+
+
+celery-beat:
+  enabled: false
+  <<: *commons
+  deployment:
+    args:
+      - run-celery-beat
+    probes:
+      liveness:
+        args: launch-celery-beat-liveness-probe
+    metrics:
+      enabled: false
+
 
 rq:
   enabled: false

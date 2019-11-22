@@ -1,7 +1,7 @@
 apiVersion: v1
 name: django-nginx-uwsgi
 icon: https://apsl.github.io/kubernetes-charts/images/django-nginx-uwsgi.png
-version: 0.4.2
+version: 0.4.3
 keywords:
   - django
   - nginx
@@ -9,9 +9,10 @@ keywords:
   - crons
   - rq
   - celery
+  - celery-beat
 description: >
     A Chart for a simple architecture of an app deploying over K8s using nginx and uwsgi in the same pod.
-    So, it depends of 'nginx-uwsgi' packages for the app, 'uwsgi' for crons, rq or cellery and 'redis' package.
+    So, it depends of nginx-uwsgi packages for the app, uwsgi for crons, rq or celery and redis package.
 mantainers:
   - name: Tomeu Canyelles
     email: bcanyelles@apsl.net

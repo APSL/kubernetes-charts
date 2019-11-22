@@ -4,10 +4,10 @@ dependencies:
   version: 0.4.2
 - name: uwsgi
   repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
-  version: 0.4.2
+  version: 0.4.1
 - name: uwsgi
   repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
-  version: 0.4.2
+  version: 0.4.1
 - name: django-celery
   repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
   version: 0.1.1
@@ -22,6 +22,6 @@ dependencies:
   version: 0.8.0
 - name: uwsgi
   repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
-  version: 0.4.2
-digest: sha256:144387af04f7688298bfdd29f0626f1b4623c534eb51f26552dbd662a0bf71a0
-generated: 2019-07-25T10:28:21.328439737+02:00
+  version: 0.4.1
+digest: sha256:d57f53a38661766b2303d6b68279107a597ec2138f193510c7b18836eda73045
+generated: 2019-11-22T14:20:59.253472823+01:00

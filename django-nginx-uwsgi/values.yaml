@@ -88,6 +88,9 @@ celery-beat:
   deployment:
     args:
       - run-celery-beat
+    probes:
+      liveness:
+        args: launch-celery-beat-liveness-probe
     metrics:
       enabled: false
 
