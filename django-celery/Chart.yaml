@@ -5,6 +5,7 @@ version: 0.1.1
 keywords:
   - template
   - celery
+  - celery-beat
 description: >
     A Chart to deploy a Celery using Django configuration.
 mantainers:
