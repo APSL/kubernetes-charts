@@ -81,17 +81,17 @@ spec:
             - name: DATABASE_NAME
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.global.databaseController.secret.name }}-{{ .Release.Name }}
+                  name: {{ .Values.global.databaseController.secret.name }}
                   key: database-name
             - name: DATABASE_USER
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.global.databaseController.secret.name }}-{{ .Release.Name }}
+                  name: {{ .Values.global.databaseController.secret.name }}
                   key: database-user
             - name: DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.global.databaseController.secret.name }}-{{ .Release.Name }}
+                  name: {{ .Values.global.databaseController.secret.name }}
                   key: database-password
           {{- end }}
           resources:
@@ -121,12 +121,12 @@ spec:
           - name: DB_USER
             valueFrom:
               secretKeyRef:
-                name: {{ .Values.global.databaseController.secret.name }}-{{ .Release.Name }}
+                name: {{ .Values.global.databaseController.secret.name }}
                 key: database-user
           - name: DB_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: {{ .Values.global.databaseController.secret.name }}-{{ .Release.Name }}
+                name: {{ .Values.global.databaseController.secret.name }}
                 key: database-password
           {{- else }}
           - name: DB_USER
@@ -166,110 +166,107 @@ spec:
             tcpSocket:
               port: {{ .Values.deployment.pgBouncer.port }}
         {{- end }}
-
 # Metrics containers
-
-# Metrics containers
-        {{- if .Values.deployment.metrics.enabled }}
-        - name: {{ .Release.Name }}-uwsgi-exporter
-          image: timonwong/uwsgi-exporter
-          args:
-          - --stats.uri=http://localhost:1717
-          imagePullPolicy: Always
-          resources:
-            requests:
-              cpu: 10m
-              memory: 10Mi
-            limits:
-              cpu: 100m
-              memory: 25Mi
-          ports:
-          - name: metrics
-            containerPort: 9117
-          livenessProbe:
-            httpGet:
-              path: /-/healthy
-              port: 9117
+      {{- if .Values.deployment.metrics.enabled }}
+      - name: {{ .Release.Name }}-uwsgi-exporter
+        image: timonwong/uwsgi-exporter
+        args:
+        - --stats.uri=http://localhost:1717
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 10m
+            memory: 10Mi
+          limits:
+            cpu: 100m
+            memory: 25Mi
+        ports:
+        - name: metrics
+          containerPort: 9117
+        livenessProbe:
+          httpGet:
+            path: /-/healthy
+            port: 9117
+      {{- if .Values.deployment.pgBouncer.enabled }}
+      - name: {{ .Release.Name }}-pgbouncer-exporter
+        image: apsl/prometheus-pgbouncer-exporter
+        args:
+        - --config=/etc/pgbouncer-exporter/config.yml
+        env:
+        - name: PGBOUNCER_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Release.Name }}
+              key: DATABASE_HOST
+        - name: PGBOUNCER_PORT
+          value: "{{ .Values.deployment.pgBouncer.port }}"
+        {{- if .Values.global.databaseController.secret.shared }}
+        - name: PGBOUNCER_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.global.databaseController.secret.name }}
+              key: database-user
+        - name: PGBOUNCER_PASS
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.global.databaseController.secret.name }}
+              key: database-password
+        {{- else }}
+        - name: PGBOUNCER_USER
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Release.Name }}
+              key: DATABASE_USER
+        - name: PGBOUNCER_PASS
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}
+              key: DATABASE_PASSWORD
+        {{- end }}
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 10m
+            memory: 20Mi
+          limits:
+            cpu: 100m
+            memory: 50Mi
+        ports:
+        - name: metrics
+          containerPort: 9127
+      {{- end }}
+      {{- if not .Values.deployment.metrics.prometheus }}
+      - name: prometheus-to-sd
+        image: gcr.io/google-containers/prometheus-to-sd:v0.3.1
+        command:
+        - /monitor
+        - --source=:http://localhost:9117/metrics # uwsgi
+        - --source=:http://localhost:8080/metrics # django
         {{- if .Values.deployment.pgBouncer.enabled }}
-        - name: {{ .Release.Name }}-pgbouncer-exporter
-          image: apsl/prometheus-pgbouncer-exporter
-          args:
-          - --config=/etc/pgbouncer-exporter/config.yml
-          env:
-          - name: PGBOUNCER_HOST
-            valueFrom:
-              configMapKeyRef:
-                name: {{ .Release.Name }}
-                key: DATABASE_HOST
-          - name: PGBOUNCER_PORT
-            value: "{{ .Values.deployment.pgBouncer.port }}"
-          {{- if .Values.global.databaseController.secret.shared }}
-          - name: PGBOUNCER_USER
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.global.databaseController.secret.name }}-{{ .Release.Name }}
-                key: database-user
-          - name: PGBOUNCER_PASS
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.global.databaseController.secret.name }}-{{ .Release.Name }}
-                key: database-password
-          {{- else }}
-          - name: PGBOUNCER_USER
-            valueFrom:
-              configMapKeyRef:
-                name: {{ .Release.Name }}
-                key: DATABASE_USER
-          - name: PGBOUNCER_PASS
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}
-                key: DATABASE_PASSWORD
-          {{- end }}
-          imagePullPolicy: Always
-          resources:
-            requests:
-              cpu: 10m
-              memory: 20Mi
-            limits:
-              cpu: 100m
-              memory: 50Mi
-          ports:
-          - name: metrics
-            containerPort: 9127
+        - --source=:http://localhost:9127/metrics # pgbouncer
         {{- end }}
-        {{- if not .Values.deployment.metrics.prometheus }}
-        - name: prometheus-to-sd
-          image: gcr.io/google-containers/prometheus-to-sd:v0.3.1
-          command:
-          - /monitor
-          - --source=:http://localhost:9117/metrics # uwsgi
-          - --source=:http://localhost:8080/metrics # django
-          {{- if .Values.deployment.pgBouncer.enabled }}
-          - --source=:http://localhost:9127/metrics # pgbouncer
-          {{- end }}
-          - --stackdriver-prefix=custom.googleapis.com
-          - --pod-id=$(POD_ID)
-          - --namespace-id=$(POD_NAMESPACE)
-          env:
-          - name: POD_ID
-            valueFrom:
-              fieldRef:
-                apiVersion: v1
-                fieldPath: metadata.name
-          - name: POD_NAMESPACE
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.namespace
-          resources:
-            requests:
-              cpu: 10m
-              memory: 20Mi
-            limits:
-              cpu: 100m
-              memory: 50Mi
-        {{- end }}
-        {{- end }}
+        - --stackdriver-prefix=custom.googleapis.com
+        - --pod-id=$(POD_ID)
+        - --namespace-id=$(POD_NAMESPACE)
+        env:
+        - name: POD_ID
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        resources:
+          requests:
+            cpu: 10m
+            memory: 20Mi
+          limits:
+            cpu: 100m
+            memory: 50Mi
+      {{- end }}
+      {{- end }}
 
       {{- if .Values.deployment.nodeSelector }}
       nodeSelector:

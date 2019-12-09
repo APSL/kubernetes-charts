@@ -1,0 +1,52 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.internalPort }}
+          {{- if .Values.probes.enabled }}
+          livenessProbe:
+            periodSeconds: 60
+            exec:
+              command:
+                - /entrypoint.sh
+                - launch-probe
+          {{- end }}
+          env:
+            - name: VARNISH_AUTH_BASIC_ENABLED
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}
+                  key: ENABLE_BASIC_AUTH
+            - name: VARNISH_BACKEND_HOST
+              value: {{ .Release.Name }}{{- if .Values.backendHost }}-{{ .Values.backendHost }}{{- end }}
+            - name: VARNISH_PORT
+              value: "{{ .Values.service.internalPort }}"
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- if .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+    {{- end }}

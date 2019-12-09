@@ -1,0 +1,9 @@
+apiVersion: v1
+description: |
+  A Chart to deploy a single uwsgi container in the pod that serve the application.
+icon: https://apsl.github.io/kubernetes-charts/images/uwsgi.png
+keywords:
+- template
+- uwsgi
+name: uwsgi
+version: 0.4.1

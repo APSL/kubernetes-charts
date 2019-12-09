@@ -1,0 +1,3 @@
+This chart "{{ template "name" . }}" details a deploy which contains two pods:
+1. Application
+2. Proxy to SQL instance of GCE

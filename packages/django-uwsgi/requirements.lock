@@ -1,0 +1,24 @@
+dependencies:
+- name: uwsgi
+  repository: http://127.0.0.1:8879/charts
+  version: 0.4.1
+- name: uwsgi
+  repository: http://127.0.0.1:8879/charts
+  version: 0.4.1
+- name: uwsgi
+  repository: http://127.0.0.1:8879/charts
+  version: 0.4.1
+- name: django-celery
+  repository: http://127.0.0.1:8879/charts
+  version: 0.1.0
+- name: varnish
+  repository: http://127.0.0.1:8879/charts
+  version: 0.1.0
+- name: redis
+  repository: https://kubernetes-charts.storage.googleapis.com
+  version: 0.8.0
+- name: uwsgi
+  repository: http://127.0.0.1:8879/charts
+  version: 0.3.0
+digest: sha256:d9fc36886e8a44c3101e49ea5f34e54dc4203d94c8f4fbdf9413b432448116cd
+generated: 2019-12-09T14:31:18.020737391+01:00

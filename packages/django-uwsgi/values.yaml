@@ -22,14 +22,10 @@ global:
     uwsgi: ""
   dataSecrets:
   dataConfigMap:
-  cloudSql:
-    host: ""
   configMap:
     databaseHost: "127.0.0.1"
     databasePort: "5432"
-  databaseController:
-    secret:
-      shared: false
+
 
 cronjob:
   enabled: true

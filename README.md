@@ -326,3 +326,7 @@ make helm-index
 ```bash
 helm template packages/packagedemo-0.0.1.tgz -n demo -r r-demo -f your_demo_app_values.yaml --notes . > ~/k8s-deployment.yaml
 ```
+or 
+```bash
+helm template ./django-nginx-uwsgi
+```

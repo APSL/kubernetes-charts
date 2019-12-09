@@ -1,0 +1,13 @@
+apiVersion: v1
+description: |
+  This Chart is to deploy a simple architecture of a Django application over K8s using only uwsgi container. This means that it will use a uwsgi package for the app and other uwsgi for crons, rq or celery.
+icon: https://apsl.github.io/kubernetes-charts/images/django-uwsgi.png
+keywords:
+- django
+- uwsgi
+- crons
+- rq
+- celery
+- celery-beat
+name: django-uwsgi
+version: 0.4.3
