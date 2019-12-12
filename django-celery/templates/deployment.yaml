@@ -169,6 +169,9 @@ spec:
           ports:
           - name: metrics
             containerPort: 8888
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-celery-exporter
         {{- if not .Values.deployment.metrics.prometheus }}
         - name: prometheus-to-sd
           image: gcr.io/google-containers/prometheus-to-sd:v0.3.1

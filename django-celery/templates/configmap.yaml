@@ -1,0 +1,16 @@
+{{- if .Values.configMap.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ .Release.Name }}-celery-exporter
+  labels:
+    app: {{ template "fullname" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  DEFAULT_ADDR: "0.0.0.0:8888"
+  BROKER_URL: "{{ .Values.global.celery.brokerUrl }}"
+  QUEUE_LIST: ""
+{{- end }}

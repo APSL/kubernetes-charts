@@ -39,7 +39,7 @@ spec:
     spec:
       containers:
 # App container
-        - name: {{ template "fullname" . }}
+        - name: {{ .Release.Name }}-uwsgi
           image: {{ .Values.global.image.uwsgi }}:{{ .Values.global.image.tag }}
           imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
           ports:
