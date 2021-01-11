@@ -1,8 +1,0 @@
-apiVersion: v1
-description: A Chart for a varnish deployment.
-icon: https://apsl.github.io/kubernetes-charts/images/varnish.png
-keywords:
-- template
-- varnish
-name: varnish
-version: 0.1.0

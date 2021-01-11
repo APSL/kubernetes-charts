@@ -13,7 +13,7 @@ APSL organitzation to deploy our Django applications over GKE.
 
 ## Helm & Tiller
 
-First of all you need to install the `Helm` client following the next
+First of all you need to install the `Helm` client following the next 
 instructions:
 
 ```bash
@@ -30,8 +30,19 @@ To install it into the cluster, simply runs:
 helm init
 ```
 
+After the Helm 2 update, there were some changes that caused changes to the 
+Helm package generation process for this repository and required additional 
+software.
+Currently, you require install `ChartMuseum` following the next instructions:
+```bash
+curl -LO https://s3.amazonaws.com/chartmuseum/release/latest/bin/linux/amd64/chartmuseum
+chmod +x ./chartmuseum
+mv ./chartmuseum /usr/local/bin
+```
+
 For more information take a look at:
 [Install Helm](https://docs.helm.sh/using_helm/#installing-helm)
+[Install ChartMuseum](https://chartmuseum.com/docs/#installation)
 
 
 ## Packages
@@ -49,13 +60,15 @@ Check that it has been added.
 helm repo list
 
 NAME     	URL
-stable   	https://kubernetes-charts.storage.googleapis.com
-incubator	https://kubernetes-charts-incubator.storage.googleapis.com/
-local    	http://127.0.0.1:8879/charts
+stable      https://charts.helm.sh/stable                    
+incubator	https://charts.helm.sh/incubator
 apsl     	https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages/
+local    	http://127.0.0.1:8879
 
 ```
+## Helm upgrade
 
+After Helm upgrade  
 
 # Structure of repository
 
@@ -293,7 +306,7 @@ packages even if it has not _charts_ (the dependency folder).
 
 ### Use case:
 
-We will generate a new chart **_packagedemo__**:
+We will generate a new chart **_packagedemo_**:
 
 0. Create the chart
 ```bash

@@ -1,7 +1,7 @@
 apiVersion: v1
 name: django-nginx-uwsgi
 icon: https://apsl.github.io/kubernetes-charts/images/django-nginx-uwsgi.png
-version: 0.4.3
+version: 0.4.4
 keywords:
   - django
   - nginx
