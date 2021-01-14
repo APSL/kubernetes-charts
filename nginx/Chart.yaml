@@ -1,7 +1,7 @@
 apiVersion: v1
 name: nginx
 icon: https://apsl.github.io/kubernetes-charts/images/nginx.png
-version: 0.2.0
+version: 0.2.1
 keywords:
   - template
   - nginx

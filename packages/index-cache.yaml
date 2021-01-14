@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   django-celery:
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.332841971+01:00"
+    created: "2021-01-14T12:39:51.523641384+01:00"
     description: |
       A Chart to deploy a Celery using Django configuration.
     digest: 0f2f5380514d34b65b5b1beb82b123aa886f99099e801dd930d7d81416b904bb
@@ -13,10 +13,10 @@ entries:
     - celery-beat
     name: django-celery
     urls:
-    - django-celery-0.1.2.tgz
+    - charts/django-celery-0.1.2.tgz
     version: 0.1.2
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.332073207+01:00"
+    created: "2019-12-12T11:07:11.525896277+01:00"
     description: |
       A Chart to deploy a Celery using Django configuration.
     digest: e7635935430645e5e170dcf8a5209e8eeca917e7f8941ede7366f060435530f6
@@ -27,10 +27,10 @@ entries:
     - celery-beat
     name: django-celery
     urls:
-    - django-celery-0.1.1.tgz
+    - charts/django-celery-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.331415719+01:00"
+    created: "2019-01-08T11:36:39.604142358+01:00"
     description: |
       A Chart to deploy a Celery using Django configuration.
     digest: 6fe830a3098fdfefc7a40a1b36c0204a49ab112f39007bd840d370a8d59efb08
@@ -39,11 +39,11 @@ entries:
     - celery
     name: django-celery
     urls:
-    - django-celery-0.1.0.tgz
+    - charts/django-celery-0.1.0.tgz
     version: 0.1.0
   django-nginx-uwsgi:
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.377022119+01:00"
+    created: "2021-01-14T12:40:15.475305283+01:00"
     dependencies:
     - alias: app
       name: nginx-uwsgi
@@ -96,10 +96,10 @@ entries:
     - celery-beat
     name: django-nginx-uwsgi
     urls:
-    - django-nginx-uwsgi-0.4.4.tgz
+    - charts/django-nginx-uwsgi-0.4.4.tgz
     version: 0.4.4
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.372932564+01:00"
+    created: "2019-12-19T16:27:55.132992027+01:00"
     dependencies:
     - alias: app
       name: nginx-uwsgi
@@ -152,10 +152,10 @@ entries:
     - celery-beat
     name: django-nginx-uwsgi
     urls:
-    - django-nginx-uwsgi-0.4.3.tgz
+    - charts/django-nginx-uwsgi-0.4.3.tgz
     version: 0.4.3
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.366776304+01:00"
+    created: "2019-11-22T14:24:58.721981812+01:00"
     dependencies:
     - alias: app
       name: nginx-uwsgi
@@ -207,10 +207,10 @@ entries:
     - celery
     name: django-nginx-uwsgi
     urls:
-    - django-nginx-uwsgi-0.4.2.tgz
+    - charts/django-nginx-uwsgi-0.4.2.tgz
     version: 0.4.2
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.362803475+01:00"
+    created: "2019-01-08T11:36:39.604142358+01:00"
     dependencies:
     - alias: app
       name: nginx-uwsgi
@@ -262,10 +262,10 @@ entries:
     - celery
     name: django-nginx-uwsgi
     urls:
-    - django-nginx-uwsgi-0.4.1.tgz
+    - charts/django-nginx-uwsgi-0.4.1.tgz
     version: 0.4.1
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.358993634+01:00"
+    created: "2019-01-03T17:28:02.692475819+01:00"
     dependencies:
     - alias: app
       name: nginx-uwsgi
@@ -317,10 +317,10 @@ entries:
     - celery
     name: django-nginx-uwsgi
     urls:
-    - django-nginx-uwsgi-0.4.0.tgz
+    - charts/django-nginx-uwsgi-0.4.0.tgz
     version: 0.4.0
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.354087273+01:00"
+    created: "2018-11-07T09:48:56.511651715+01:00"
     dependencies:
     - alias: app
       name: nginx-uwsgi
@@ -372,10 +372,10 @@ entries:
     - celery
     name: django-nginx-uwsgi
     urls:
-    - django-nginx-uwsgi-0.3.0.tgz
+    - charts/django-nginx-uwsgi-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.349814507+01:00"
+    created: "2018-09-26T14:20:29.022420451+02:00"
     dependencies:
     - alias: app
       name: nginx-uwsgi
@@ -421,10 +421,10 @@ entries:
     - celery
     name: django-nginx-uwsgi
     urls:
-    - django-nginx-uwsgi-0.2.1.tgz
+    - charts/django-nginx-uwsgi-0.2.1.tgz
     version: 0.2.1
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.346963655+01:00"
+    created: "2018-09-25T10:22:35.354988272+02:00"
     dependencies:
     - alias: app
       name: nginx-uwsgi
@@ -465,10 +465,10 @@ entries:
     - celery
     name: django-nginx-uwsgi
     urls:
-    - django-nginx-uwsgi-0.2.0.tgz
+    - charts/django-nginx-uwsgi-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.343807215+01:00"
+    created: "2018-09-26T14:20:29.022420451+02:00"
     dependencies:
     - alias: app
       name: nginx-uwsgi
@@ -514,10 +514,10 @@ entries:
     - celery
     name: django-nginx-uwsgi
     urls:
-    - django-nginx-uwsgi-0.1.1.tgz
+    - charts/django-nginx-uwsgi-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.337250765+01:00"
+    created: "2017-10-09T09:42:50+02:00"
     dependencies:
     - alias: app
       name: nginx-uwsgi
@@ -555,11 +555,11 @@ entries:
     - uwsgi
     name: django-nginx-uwsgi
     urls:
-    - django-nginx-uwsgi-0.1.0.tgz
+    - charts/django-nginx-uwsgi-0.1.0.tgz
     version: 0.1.0
   django-uwsgi:
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.406783771+01:00"
+    created: "2021-01-14T12:40:36.751008+01:00"
     dependencies:
     - alias: app
       name: uwsgi
@@ -606,10 +606,10 @@ entries:
     - celery-beat
     name: django-uwsgi
     urls:
-    - django-uwsgi-0.4.3.tgz
+    - charts/django-uwsgi-0.4.3.tgz
     version: 0.4.3
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.403694133+01:00"
+    created: "2019-12-09T12:56:25.027544826+01:00"
     dependencies:
     - alias: app
       name: uwsgi
@@ -656,10 +656,10 @@ entries:
     - celery-beat
     name: django-uwsgi
     urls:
-    - django-uwsgi-0.4.2.tgz
+    - charts/django-uwsgi-0.4.2.tgz
     version: 0.4.2
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.398053981+01:00"
+    created: "2019-11-22T14:32:03.332697855+01:00"
     dependencies:
     - name: uwsgi
       repository: http://127.0.0.1:8879/charts
@@ -704,10 +704,10 @@ entries:
     - celery
     name: django-uwsgi
     urls:
-    - django-uwsgi-0.4.1.tgz
+    - charts/django-uwsgi-0.4.1.tgz
     version: 0.4.1
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.394575822+01:00"
+    created: "2019-01-03T17:28:02.692475819+01:00"
     dependencies:
     - name: uwsgi
       repository: http://127.0.0.1:8879/charts
@@ -752,10 +752,10 @@ entries:
     - celery
     name: django-uwsgi
     urls:
-    - django-uwsgi-0.4.0.tgz
+    - charts/django-uwsgi-0.4.0.tgz
     version: 0.4.0
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.390990894+01:00"
+    created: "2018-11-07T09:48:56.511651715+01:00"
     dependencies:
     - name: uwsgi
       repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
@@ -800,10 +800,10 @@ entries:
     - celery
     name: django-uwsgi
     urls:
-    - django-uwsgi-0.3.0.tgz
+    - charts/django-uwsgi-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.388546449+01:00"
+    created: "2018-09-26T14:20:29.022420451+02:00"
     dependencies:
     - name: uwsgi
       repository: http://127.0.0.1:8879/charts
@@ -847,10 +847,10 @@ entries:
     - celery
     name: django-uwsgi
     urls:
-    - django-uwsgi-0.2.1.tgz
+    - charts/django-uwsgi-0.2.1.tgz
     version: 0.2.1
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.385754828+01:00"
+    created: "2018-09-26T14:20:29.022420451+02:00"
     dependencies:
     - name: uwsgi
       repository: http://127.0.0.1:8879/charts
@@ -889,10 +889,10 @@ entries:
     - celery
     name: django-uwsgi
     urls:
-    - django-uwsgi-0.2.0.tgz
+    - charts/django-uwsgi-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.381431519+01:00"
+    created: "2018-09-26T14:20:29.022420451+02:00"
     dependencies:
     - name: uwsgi
       repository: http://127.0.0.1:8879/charts
@@ -931,10 +931,10 @@ entries:
     - celery
     name: django-uwsgi
     urls:
-    - django-uwsgi-0.1.1.tgz
+    - charts/django-uwsgi-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.379238168+01:00"
+    created: "2017-10-09T09:42:52+02:00"
     dependencies:
     - name: uwsgi
       repository: http://127.0.0.1:8879/charts
@@ -971,11 +971,11 @@ entries:
     - crons
     name: django-uwsgi
     urls:
-    - django-uwsgi-0.1.0.tgz
+    - charts/django-uwsgi-0.1.0.tgz
     version: 0.1.0
   nginx:
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.408493072+01:00"
+    created: "2021-01-14T12:40:36.927005545+01:00"
     description: |
       A Chart to deploy over K8s an applications that can be served by nginx.
     digest: 4f4ed809422a1795671373215a24d881702f91ca505b64ec002d1198a4c201a5
@@ -985,10 +985,10 @@ entries:
     - nginx
     name: nginx
     urls:
-    - nginx-0.2.1.tgz
+    - charts/nginx-0.2.1.tgz
     version: 0.2.1
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.407907231+01:00"
+    created: "2021-01-11T16:11:01.303514486+01:00"
     description: |
       A Chart to deploy over K8s an applications that can be served by nginx.
     digest: ad4939cb7590e90afef65cccbdc7f2467ce2052a72fe4259f66243aec9a06d9a
@@ -998,10 +998,10 @@ entries:
     - nginx
     name: nginx
     urls:
-    - nginx-0.2.0.tgz
+    - charts/nginx-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.407318934+01:00"
+    created: "2018-11-07T09:48:56.511651715+01:00"
     description: |
       A Chart to deploy over K8s an applications that can be served by nginx.
     digest: 7ed6b28d6c59298c3006eedf2577b2403b6cb644ca60b4f80c5d6527d2b7f6fa
@@ -1011,11 +1011,11 @@ entries:
     - nginx
     name: nginx
     urls:
-    - nginx-0.1.0.tgz
+    - charts/nginx-0.1.0.tgz
     version: 0.1.0
   nginx-uwsgi:
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.417839425+01:00"
+    created: "2021-01-14T12:40:36.859006493+01:00"
     description: |
       This Chart is for applications served using uwsgi and nginx server. So, it will deploy over K8s a pod with a uwsgi and a nginx container.
     digest: e81d0061d7ebc2eb034b1da594463e781e45e683d42ae20a19d52450fabb27fe
@@ -1026,10 +1026,10 @@ entries:
     - uwsgi
     name: nginx-uwsgi
     urls:
-    - nginx-uwsgi-0.4.3.tgz
+    - charts/nginx-uwsgi-0.4.3.tgz
     version: 0.4.3
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.416859245+01:00"
+    created: "2021-01-11T14:26:00.205000774+01:00"
     description: |
       This Chart is for applications served using uwsgi and nginx server. So, it will deploy over K8s a pod with a uwsgi and a nginx container.
     digest: fe3de92e56aff93abd3801ff7b52133fd72bb0c711fcefaad95699c90d3ef2fd
@@ -1040,10 +1040,10 @@ entries:
     - uwsgi
     name: nginx-uwsgi
     urls:
-    - nginx-uwsgi-0.4.2.tgz
+    - charts/nginx-uwsgi-0.4.2.tgz
     version: 0.4.2
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.41588954+01:00"
+    created: "2019-01-08T11:36:39.604142358+01:00"
     description: |
       This Chart is for applications served using uwsgi and nginx server. So, it will deploy over K8s a pod with a uwsgi and a nginx container.
     digest: ff53c8e23ef49c68b4853b1a163e57d15c4f29e1e3e6a4b9d4fe57bd48c4fa64
@@ -1054,10 +1054,10 @@ entries:
     - uwsgi
     name: nginx-uwsgi
     urls:
-    - nginx-uwsgi-0.4.1.tgz
+    - charts/nginx-uwsgi-0.4.1.tgz
     version: 0.4.1
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.414979091+01:00"
+    created: "2019-01-03T17:28:02.692475819+01:00"
     description: |
       This Chart is for applications served using uwsgi and nginx server. So, it will deploy over K8s a pod with a uwsgi and a nginx container.
     digest: 648f6f1e6f41ddc4299a95b44381da48a5bb7c2eb45da1b02f78e709de1401eb
@@ -1068,10 +1068,10 @@ entries:
     - uwsgi
     name: nginx-uwsgi
     urls:
-    - nginx-uwsgi-0.4.0.tgz
+    - charts/nginx-uwsgi-0.4.0.tgz
     version: 0.4.0
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.41403474+01:00"
+    created: "2018-11-07T09:48:56.511651715+01:00"
     description: |
       This Chart is for applications served using uwsgi and nginx server. So, it will deploy over K8s a pod with a uwsgi and a nginx container.
     digest: b0cf6dbe32ed28fb8583daa88c52cc3e05c17043f2adb7cd57dc452c1aad8ac6
@@ -1082,10 +1082,10 @@ entries:
     - uwsgi
     name: nginx-uwsgi
     urls:
-    - nginx-uwsgi-0.3.0.tgz
+    - charts/nginx-uwsgi-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.413089185+01:00"
+    created: "2018-09-26T14:20:29.022420451+02:00"
     description: |
       This Chart is for applications served using uwsgi and nginx server. So, it will deploy over K8s a pod with a uwsgi and a nginx container.
     digest: a769bebae9ff7d4a3ecc8eb8ee04edfab65edd486247c6fd2f7d51a349ef96a7
@@ -1096,10 +1096,10 @@ entries:
     - proxysql
     name: nginx-uwsgi
     urls:
-    - nginx-uwsgi-0.2.1.tgz
+    - charts/nginx-uwsgi-0.2.1.tgz
     version: 0.2.1
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.410758012+01:00"
+    created: "2018-09-26T14:20:29.022420451+02:00"
     description: |
       This Chart is for applications served using uwsgi and nginx server. So, it will deploy over K8s a pod with a uwsgi and a nginx container.
     digest: fa4a74e593ec32c2fa873e16d31281aa8f37003bb802b73de171213c9bd4e56d
@@ -1110,10 +1110,10 @@ entries:
     - proxysql
     name: nginx-uwsgi
     urls:
-    - nginx-uwsgi-0.2.0.tgz
+    - charts/nginx-uwsgi-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.409948735+01:00"
+    created: "2018-09-25T10:23:59.370148588+02:00"
     description: |
       This Chart is for applications served using uwsgi and nginx server. So, it will deploy over K8s a pod with a uwsgi and a nginx container.
     digest: 4eed198fd54b95243cbfa58d6b57d57aaf0c1aa9a835cbcb0538d03106250fbe
@@ -1124,10 +1124,10 @@ entries:
     - proxysql
     name: nginx-uwsgi
     urls:
-    - nginx-uwsgi-0.1.1.tgz
+    - charts/nginx-uwsgi-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.409242366+01:00"
+    created: "2017-10-09T09:42:52+02:00"
     description: A Helm chart for a simple architecture of an app deploying over Kubernetes
       using nginx and uwsgi in the same pod.
     digest: 308a405e5d6c25c45cadeec0d2c6cf0b0e9b3a4a502e48299dd41daf257a997b
@@ -1138,23 +1138,23 @@ entries:
     - proxysql
     name: nginx-uwsgi
     urls:
-    - nginx-uwsgi-0.1.0.tgz
+    - charts/nginx-uwsgi-0.1.0.tgz
     version: 0.1.0
   thumbor:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2021-01-14T12:42:15.418848988+01:00"
+    created: "2021-01-14T12:40:36.987004708+01:00"
     description: |
       A Helm chart to deploy Thumbor.
     digest: 1f3d423fd91243eee78346e5e14305dbe66b4bb03fce0932132c52da38221b11
     icon: https://apsl.github.io/kubernetes-charts/images/thumbor.png
     name: thumbor
     urls:
-    - thumbor-0.1.0.tgz
+    - charts/thumbor-0.1.0.tgz
     version: 0.1.0
   uwsgi:
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.428196482+01:00"
+    created: "2021-01-14T12:40:37.059003704+01:00"
     description: |
       A Chart to deploy a single uwsgi container in the pod that serve the application.
     digest: ceef8f3af3ee1376b70eeac77e42ab65e664cfd3744be06e12733cb7904ad3d1
@@ -1164,10 +1164,10 @@ entries:
     - uwsgi
     name: uwsgi
     urls:
-    - uwsgi-0.4.4.tgz
+    - charts/uwsgi-0.4.4.tgz
     version: 0.4.4
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.427425321+01:00"
+    created: "2021-01-11T14:26:00.205000774+01:00"
     description: |
       A Chart to deploy a single uwsgi container in the pod that serve the application.
     digest: b22d9495dd92b57b0c9bfd394e1dbd4f5c7e6bae61c6951b102bd20ee2960f75
@@ -1177,10 +1177,10 @@ entries:
     - uwsgi
     name: uwsgi
     urls:
-    - uwsgi-0.4.3.tgz
+    - charts/uwsgi-0.4.3.tgz
     version: 0.4.3
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.426608265+01:00"
+    created: "2019-12-12T11:07:43.153526835+01:00"
     description: |
       A Chart to deploy a single uwsgi container in the pod that serve the application.
     digest: a29588e643068a3bc44842f5a3e8989300da117fb21e1ac9c47fa6a602c03720
@@ -1190,10 +1190,10 @@ entries:
     - uwsgi
     name: uwsgi
     urls:
-    - uwsgi-0.4.2.tgz
+    - charts/uwsgi-0.4.2.tgz
     version: 0.4.2
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.42582597+01:00"
+    created: "2019-01-08T11:36:39.608142308+01:00"
     description: |
       A Chart to deploy a single uwsgi container in the pod that serve the application.
     digest: 427dae859a16aaad3feeef94d1096fd649f648bdd515d7af837110fbdc625ee6
@@ -1203,10 +1203,10 @@ entries:
     - uwsgi
     name: uwsgi
     urls:
-    - uwsgi-0.4.1.tgz
+    - charts/uwsgi-0.4.1.tgz
     version: 0.4.1
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.425010029+01:00"
+    created: "2019-01-03T17:28:02.692475819+01:00"
     description: |
       A Chart to deploy a single uwsgi container in the pod that serve the application.
     digest: 5d83f94554574839ee6ac211afae3d71105ffb314a25ea5c709c502cf45d0ad0
@@ -1216,10 +1216,10 @@ entries:
     - uwsgi
     name: uwsgi
     urls:
-    - uwsgi-0.4.0.tgz
+    - charts/uwsgi-0.4.0.tgz
     version: 0.4.0
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.422787067+01:00"
+    created: "2018-11-07T09:48:56.511651715+01:00"
     description: |
       A Chart to deploy a single uwsgi container in the pod that serve the application.
     digest: 598adaa21f3af2e4924be52bd7ec074e60c5b718c441c2691a1558b42e60764a
@@ -1229,10 +1229,10 @@ entries:
     - uwsgi
     name: uwsgi
     urls:
-    - uwsgi-0.3.0.tgz
+    - charts/uwsgi-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.421933278+01:00"
+    created: "2018-09-26T14:20:29.022420451+02:00"
     description: |
       A Chart to deploy a single uwsgi container in the pod that serve the application.
     digest: d981fff55a6abba4c89d294b95d6d832313c819d266c787557869887b09ae87c
@@ -1242,10 +1242,10 @@ entries:
     - proxysql
     name: uwsgi
     urls:
-    - uwsgi-0.2.1.tgz
+    - charts/uwsgi-0.2.1.tgz
     version: 0.2.1
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.421185938+01:00"
+    created: "2018-09-26T14:20:29.022420451+02:00"
     description: |
       A Chart to deploy a single uwsgi container in the pod that serve the application.
     digest: 6800d639e028ef73993d9607318ddd847ef32968378f371ad23e975b88dbba9b
@@ -1255,10 +1255,10 @@ entries:
     - proxysql
     name: uwsgi
     urls:
-    - uwsgi-0.2.0.tgz
+    - charts/uwsgi-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.420442573+01:00"
+    created: "2018-09-25T10:24:05.374088692+02:00"
     description: |
       A Chart to deploy a single uwsgi container in the pod that serve the application.
     digest: c4d46e42f4e15b696fec69d9ca34f38acc8a42febad023a0fbe561b36ffb62b5
@@ -1268,10 +1268,10 @@ entries:
     - proxysql
     name: uwsgi
     urls:
-    - uwsgi-0.1.1.tgz
+    - charts/uwsgi-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.419686432+01:00"
+    created: "2017-10-09T09:42:52+02:00"
     description: A Helm chart for a simple architecture of an app deploying over Kubernetes
       using uwsgi
     digest: 984dc74a731883d2147361df48c059e5cfc47e168c4d94b42309946c45c3b6e7
@@ -1281,11 +1281,11 @@ entries:
     - proxysql
     name: uwsgi
     urls:
-    - uwsgi-0.1.0.tgz
+    - charts/uwsgi-0.1.0.tgz
     version: 0.1.0
   varnish:
   - apiVersion: v1
-    created: "2021-01-14T12:42:15.428531192+01:00"
+    created: "2021-01-14T12:40:37.123002812+01:00"
     description: A Chart for a varnish deployment.
     digest: 8060e9eb8bb4f0e89b47fa1dd744f369a532b4ba14ed5579623062357cd77ea2
     icon: https://apsl.github.io/kubernetes-charts/images/varnish.png
@@ -1294,6 +1294,7 @@ entries:
     - varnish
     name: varnish
     urls:
-    - varnish-0.1.0.tgz
+    - charts/varnish-0.1.0.tgz
     version: 0.1.0
-generated: "2021-01-14T12:42:15.330114098+01:00"
+generated: "2021-01-14T12:42:29+01:00"
+serverInfo: {}

@@ -1,13 +1,13 @@
 dependencies:
 - name: uwsgi
   repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
-  version: 0.4.3
+  version: 0.4.4
 - name: uwsgi
   repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
-  version: 0.4.3
+  version: 0.4.4
 - name: uwsgi
   repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
-  version: 0.4.3
+  version: 0.4.4
 - name: django-celery
   repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
   version: 0.1.2
@@ -15,10 +15,10 @@ dependencies:
   repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
   version: 0.1.0
 - name: redis
-  repository: https://kubernetes-charts.storage.googleapis.com
+  repository: https://charts.helm.sh/stable
   version: 0.8.0
 - name: uwsgi
   repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
-  version: 0.4.3
-digest: sha256:76eadd4a68326782e01a0e042d064c2157d415047b117e13c10b970301dda256
-generated: 2019-12-19T16:25:57.459148474+01:00
+  version: 0.4.4
+digest: sha256:4e885c8454f6b72479aa7b4f6659a7da2b11a7e449029f8d13a566bb1a26ed2f
+generated: "2021-01-11T16:07:41.563468624+01:00"
