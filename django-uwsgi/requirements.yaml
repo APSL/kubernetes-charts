@@ -22,6 +22,12 @@ dependencies:
     alias: celery
     condition: celery.enabled
 
+  - name: django-celery
+    version: 0.1.2
+    repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
+    alias: celery-beat
+    condition: celery-beat.enabled
+
   - name: varnish
     version: 0.1.0
     repository: https://raw.githubusercontent.com/APSL/kubernetes-charts/master/packages
